@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Bro - Nutrition</title>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="nutrition.css">
+</head>
+<body class="section-body">
+    <header class="home-header">
+        <img src="images/logo.png" alt="Logo" width="200px">
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="workouts.html">Workouts</a></li>
+                <li><a href="nutrition.html" class="active">Nutrition</a></li>
+                <li><a href="progress.html">Progress</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="#" class="profile-link"><i class="fas fa-user-circle"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-banner">
+            <div class="banner-content">
+                <h1>Nutrition</h1>
+                <p>Fuel your body for optimal performance</p>
+            </div>
+        </section>
+
+        <section class="nutrition-tracker">
+            <div class="section-header">
+                <h2>Daily Nutrition Tracker</h2>
+                <p>Track your daily nutrition intake</p>
+            </div>
+            
+            <div class="tracker-container">
+                <div class="macro-summary">
+                    <div class="date-picker">
+                        <button id="prev-day"><i class="fas fa-chevron-left"></i></button>
+                        <h3 id="current-date">Today, March 11, 2025</h3>
+                        <button id="next-day"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    
+                    <div class="macro-circle-container">
+                        <div class="macro-circle" id="calories-circle">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#eee" stroke-width="5" />
+                                <circle cx="50" cy="50" r="45
