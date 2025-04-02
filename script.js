@@ -1,3 +1,8 @@
+// Initialize AOS animations
+document.addEventListener('DOMContentLoaded', function() {
+    AOS.init();
+});
+
 // Animation for Sign In/Sign Up form toggle
 const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
@@ -21,27 +26,47 @@ document.querySelector('.sign-up-container form').addEventListener('submit', fun
     
     // Validate all fields
     if (!name || !email || !password) {
-        alert("Vui lòng điền đầy đủ thông tin!");
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Vui lòng điền đầy đủ thông tin!',
+            confirmButtonColor: '#3085d6'
+        });
         return;
     }
     
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-        alert("Email không hợp lệ!");
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Email không hợp lệ!',
+            confirmButtonColor: '#3085d6'
+        });
         return;
     }
     
     // Password validation - at least 6 characters
     if (password.length < 6) {
-        alert("Mật khẩu phải có ít nhất 6 ký tự!");
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Mật khẩu phải có ít nhất 6 ký tự!',
+            confirmButtonColor: '#3085d6'
+        });
         return;
     }
     
     // Check if user exists
     let users = JSON.parse(localStorage.getItem("users")) || [];
     if (users.some(user => user.email === email)) {
-        alert("Email đã tồn tại!");
+        Swal.fire({
+            icon: 'warning',
+            title: 'Email đã tồn tại!',
+            text: 'Vui lòng sử dụng email khác hoặc đăng nhập.',
+            confirmButtonColor: '#3085d6'
+        });
         return;
     }
     
@@ -49,11 +74,16 @@ document.querySelector('.sign-up-container form').addEventListener('submit', fun
     users.push({ name, email, password });
     localStorage.setItem("users", JSON.stringify(users));
     
-    alert("Đăng ký thành công! Hãy đăng nhập.");
-    
-    // Clear form and switch to sign in
-    this.reset();
-    container.classList.remove("right-panel-active");
+    Swal.fire({
+        icon: 'success',
+        title: 'Đăng ký thành công!',
+        text: 'Hãy đăng nhập để tiếp tục.',
+        confirmButtonColor: '#3085d6'
+    }).then((result) => {
+        // Clear form and switch to sign in
+        this.reset();
+        container.classList.remove("right-panel-active");
+    });
 });
 
 // Sign In Form Handling
@@ -65,7 +95,12 @@ document.querySelector('.sign-in-container form').addEventListener('submit', fun
     
     // Validate fields
     if (!email || !password) {
-        alert("Vui lòng điền đầy đủ thông tin!");
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Vui lòng điền đầy đủ thông tin!',
+            confirmButtonColor: '#3085d6'
+        });
         return;
     }
     
@@ -77,12 +112,24 @@ document.querySelector('.sign-in-container form').addEventListener('submit', fun
         // Store current user in localStorage
         localStorage.setItem("currentUser", JSON.stringify(user));
         
-        alert("Đăng nhập thành công!");
-        
-        // Redirect to home page
-        window.location.href = "home.html";
+        Swal.fire({
+            icon: 'success',
+            title: 'Đăng nhập thành công!',
+            text: 'Đang chuyển hướng...',
+            timer: 1500,
+            timerProgressBar: true,
+            showConfirmButton: false
+        }).then(() => {
+            // Redirect to home page
+            window.location.href = "home.html";
+        });
     } else {
-        alert("Sai email hoặc mật khẩu!");
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi đăng nhập',
+            text: 'Sai email hoặc mật khẩu!',
+            confirmButtonColor: '#3085d6'
+        });
     }
 });
 
