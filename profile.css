@@ -794,159 +794,167 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px solid #e0e0e0;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
-.card-header .confirm-button {
-    background-color: #ff0000;
-    color: white;
+.card-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+.toggle-info-button,
+.delete-confirmed-button {
+    background: none;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 600;
+    color: var(--text-color);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: var(--transition);
+    position: relative;
+    z-index: 3;
 }
 
-.card-header .confirm-button:hover {
-    background-color: #cc0000;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.2);
+.toggle-info-button {
+    margin-right: 0.5rem;
 }
 
-.card-header .confirm-button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(255, 0, 0, 0.2);
+.toggle-info-button:hover {
+    background: var(--hover-bg);
+    transform: scale(1.1);
 }
 
-.card-header .confirm-button i {
-    font-size: 18px;
-}
-
-/* Dark mode styles */
-[data-theme="dark"] .card-header .confirm-button {
-    background-color: #ff3333;
-    color: white;
-}
-
-[data-theme="dark"] .card-header .confirm-button:hover {
-    background-color: #ff4444;
-    box-shadow: 0 4px 8px rgba(255, 51, 51, 0.3);
-}
-
-.confirmed-info {
-    padding: 20px;
-    max-height: 1000px;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-}
-
-.confirmed-info.collapsed {
-    max-height: 0;
-    padding: 0;
+.delete-confirmed-button:hover {
+    background: var(--hover-bg);
+    color: var(--error-color);
+    transform: scale(1.1);
 }
 
 .info-item {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #f8f9fa;
+    padding: 0.8rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
-[data-theme="dark"] .info-item {
-    background-color: #2d2d2d;
+.info-item:last-child {
+    border-bottom: none;
 }
 
 .info-item i {
     width: 24px;
-    color: #ff0000;
-    margin-right: 10px;
+    margin-right: 1rem;
+    color: var(--primary-color);
 }
 
 .info-item label {
-    font-weight: 600;
-    margin-right: 10px;
     min-width: 120px;
+    color: var(--text-light);
 }
 
 .info-item span {
-    color: #666;
+    color: var(--text-color);
+    flex: 1;
 }
 
-[data-theme="dark"] .info-item span {
-    color: #b0b0b0;
+/* Add smooth scrolling to the page */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
 }
 
-.toggle-info-button {
-    background: transparent;
-    border: none;
-    color: #666;
+/* Ensure buttons are clickable */
+.toggle-info-button,
+.delete-confirmed-button,
+.update-button,
+.delete-button {
+    position: relative;
+    z-index: 3;
     cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
 }
 
-.toggle-info-button:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: #ff0000;
+/* Add hover effect to buttons */
+.toggle-info-button:hover,
+.delete-confirmed-button:hover,
+.update-button:hover,
+.delete-button:hover {
+    transform: scale(1.05);
 }
 
-.toggle-info-button i {
-    font-size: 20px;
-    transition: transform 0.3s ease;
+.confirmed-info {
+    max-height: 300px;
+    overflow-y: auto;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    scrollbar-width: thin;
 }
 
-.toggle-info-button.collapsed i {
-    transform: rotate(180deg);
+.confirmed-info.collapsed {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top: none;
+    overflow: hidden;
 }
 
-[data-theme="dark"] .toggle-info-button {
-    color: #b0b0b0;
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-[data-theme="dark"] .toggle-info-button:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: #ff3333;
+.info-row {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s ease;
 }
 
-.delete-confirmed-button {
-    background: transparent;
-    border: none;
-    color: #666;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    margin-left: 10px;
+.info-row:last-child {
+    border-bottom: none;
 }
 
-.delete-confirmed-button:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: #f44336;
+.info-row:hover {
+    background-color: var(--hover-bg);
 }
 
-.delete-confirmed-button i {
-    font-size: 20px;
+.info-icon {
+    width: 50px;
+    text-align: center;
+    color: var(--primary-color);
+    padding: 12px 8px;
 }
 
-[data-theme="dark"] .delete-confirmed-button {
-    color: #b0b0b0;
+.info-label {
+    width: 120px;
+    color: var(--text-light);
+    font-weight: 500;
+    padding: 12px 8px;
 }
 
-[data-theme="dark"] .delete-confirmed-button:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: #ff3333;
+.info-value {
+    color: var(--text-color);
+    padding: 12px 8px;
+}
+
+/* Custom scrollbar for the table */
+.confirmed-info::-webkit-scrollbar {
+    width: 6px;
+}
+
+.confirmed-info::-webkit-scrollbar-track {
+    background: var(--card-bg);
+}
+
+.confirmed-info::-webkit-scrollbar-thumb {
+    background-color: var(--primary-light);
+    border-radius: 3px;
+}
+
+.confirmed-info::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary-color);
 } 
