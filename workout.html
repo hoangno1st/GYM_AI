@@ -4,25 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gym Bro - Workouts</title>
-
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <!-- External CSS -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="workouts.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="section-body">
+<body>
     <header class="home-header">
-        <img src="images/logo.png" alt="Logo" width="200px">
+        <img src="images/logo.png" alt="Gym Bro Logo">
         <nav>
             <ul>
                 <li><a href="home.html">Home</a></li>
                 <li><a href="workouts.html" class="active">Workouts</a></li>
                 <li><a href="nutrition.html">Nutrition</a></li>
-                <li><a href="progress.html">Progress</a></li>
-                <li><a href="community.html">Community</a></li>
+                <li><a href="https://discord.gg/BerPTXvEux" target="_blank">Community</a></li>
                 <li><a href="#" class="profile-link"><i class="fas fa-user-circle"></i></a></li>
             </ul>
         </nav>
@@ -103,118 +98,10 @@
                         <button class="view-workout">View Workout</button>
                     </div>
                 </div>
-                <div class="workout-card" data-level="intermediate" data-category="strength">
-                    <div class="workout-image">
-                        <img src="/api/placeholder/400/250" alt="Intermediate Strength Training">
-                        <div class="workout-level">Intermediate</div>
-                    </div>
-                    <div class="workout-details">
-                        <h3>Hypertrophy Program</h3>
-                        <p>Focus on muscle building and progressive overload</p>
-                        <div class="workout-meta">
-                            <span><i class="far fa-clock"></i> 60 min</span>
-                            <span><i class="fas fa-calendar-alt"></i> 4x / week</span>
-                            <span><i class="fas fa-fire"></i> 450 cal</span>
-                        </div>
-                        <button class="view-workout">View Workout</button>
-                    </div>
-                </div>
-                <div class="workout-card" data-level="advanced" data-category="strength">
-                    <div class="workout-image">
-                        <img src="/api/placeholder/400/250" alt="Advanced Strength Training">
-                        <div class="workout-level">Advanced</div>
-                    </div>
-                    <div class="workout-details">
-                        <h3>Power & Performance</h3>
-                        <p>Advanced program focusing on strength and power development</p>
-                        <div class="workout-meta">
-                            <span><i class="far fa-clock"></i> 75 min</span>
-                            <span><i class="fas fa-calendar-alt"></i> 5x / week</span>
-                            <span><i class="fas fa-fire"></i> 550 cal</span>
-                        </div>
-                        <button class="view-workout">View Workout</button>
-                    </div>
-                </div>
-                <div class="workout-card" data-level="beginner" data-category="cardio">
-                    <div class="workout-image">
-                        <img src="/api/placeholder/400/250" alt="Beginner Cardio">
-                        <div class="workout-level">Beginner</div>
-                    </div>
-                    <div class="workout-details">
-                        <h3>Couch to 5K</h3>
-                        <p>Progressive cardio program designed for beginners</p>
-                        <div class="workout-meta">
-                            <span><i class="far fa-clock"></i> 30 min</span>
-                            <span><i class="fas fa-calendar-alt"></i> 3x / week</span>
-                            <span><i class="fas fa-fire"></i> 250 cal</span>
-                        </div>
-                        <button class="view-workout">View Workout</button>
-                    </div>
-                </div>
-                <div class="workout-card" data-level="intermediate" data-category="hiit">
-                    <div class="workout-image">
-                        <img src="/api/placeholder/400/250" alt="HIIT Workout">
-                        <div class="workout-level">Intermediate</div>
-                    </div>
-                    <div class="workout-details">
-                        <h3>Full Body HIIT</h3>
-                        <p>High-intensity interval training for maximum calorie burn</p>
-                        <div class="workout-meta">
-                            <span><i class="far fa-clock"></i> 30 min</span>
-                            <span><i class="fas fa-calendar-alt"></i> 4x / week</span>
-                            <span><i class="fas fa-fire"></i> 400 cal</span>
-                        </div>
-                        <button class="view-workout">View Workout</button>
-                    </div>
-                </div>
-                <div class="workout-card" data-level="beginner" data-category="flexibility">
-                    <div class="workout-image">
-                        <img src="/api/placeholder/400/250" alt="Flexibility Workout">
-                        <div class="workout-level">Beginner</div>
-                    </div>
-                    <div class="workout-details">
-                        <h3>Mobility Essentials</h3>
-                        <p>Improve your flexibility and joint mobility</p>
-                        <div class="workout-meta">
-                            <span><i class="far fa-clock"></i> 20 min</span>
-                            <span><i class="fas fa-calendar-alt"></i> Daily</span>
-                            <span><i class="fas fa-fire"></i> 120 cal</span>
-                        </div>
-                        <button class="view-workout">View Workout</button>
-                    </div>
-                </div>
+                <!-- Các workout-card khác tương tự -->
             </div>
             <div class="load-more">
                 <button id="load-more-btn">Load More</button>
-            </div>
-        </section>
-
-        <section class="workout-creator">
-            <div class="section-header">
-                <h2>Create Your Own Workout</h2>
-                <p>Design a custom workout plan tailored to your specific needs</p>
-            </div>
-            <div class="creator-card">
-                <div class="creator-features">
-                    <div class="feature">
-                        <i class="fas fa-puzzle-piece"></i>
-                        <h3>Drag-and-Drop Builder</h3>
-                        <p>Easily build your workout with our intuitive interface</p>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-database"></i>
-                        <h3>Exercise Library</h3>
-                        <p>Access over 500 exercises with instructional videos</p>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-share-alt"></i>
-                        <h3>Share with Friends</h3>
-                        <p>Share your custom workouts with the community</p>
-                    </div>
-                </div>
-                <div class="creator-cta">
-                    <button>Start Creating</button>
-                </div>
             </div>
         </section>
     </main>
@@ -223,7 +110,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>About Us</h3>
-                <p>We're dedicated to helping you achieve your fitness goals through smart training and nutrition.</p>
+                <p>We're dedicated to helping you achieve your fitness goals.</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
@@ -231,18 +118,13 @@
                     <li><a href="home.html">Home</a></li>
                     <li><a href="workouts.html">Workouts</a></li>
                     <li><a href="nutrition.html">Nutrition</a></li>
-                    <li><a href="progress.html">Progress</a></li>
-                    <li><a href="community.html">Community</a></li>
+                    <li><a href="https://discord.gg/BerPTXvEux" target="_blank">Community</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Connect</h3>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
+                <p>Email: support@gymbro.com</p>
+                <p>Phone: +1 234 567 8900</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -250,7 +132,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript Files -->
+    <script src="theme.js"></script>
     <script src="workouts.js"></script>
 </body>
 </html>
