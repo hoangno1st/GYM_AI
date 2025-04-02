@@ -60,21 +60,9 @@ Gym AI is a comprehensive web-based fitness application that helps users track t
 1. Clone the repository:
 
    ```bash
-   git clone [repository-url]
+   git clone git@github.com:hoangno1st/GYM_AI.git
    ```
 
 2. Open `index.html` in your web browser to start using the application.
 
 3. Create an account or sign in to access all features.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-
-For any questions or support, please reach out to [your-contact-info].
