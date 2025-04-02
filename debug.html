@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Bro - Debug Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #3498db;
+        }
+        .card {
+            background: #f9f9f9;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            margin-right: 10px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+        .btn-warning {
+            background: #f39c12;
+        }
+        .btn-warning:hover {
+            background: #e67e22;
+        }
+        .btn-danger {
+            background: #e74c3c;
+        }
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        .btn-success {
+            background: #2ecc71;
+        }
+        .btn-success:hover {
+            background: #27ae60;
+        }
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tool-box {
+            flex: 1 1 calc(50% - 20px);
+            min-width: 300px;
+            margin-bottom: 20px;
+        }
+        .error-box {
+            background: #ffe9e9;
+            border-left: 4px solid #e74c3c;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .info-box {
+            background: #e7f4fe;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gym Bro - Debug Hub</h1>
+    <p>Trang này giúp bạn khắc phục các lỗi phổ biến và truy cập các công cụ hữu ích.</p>
+    
+    <div class="card">
+        <h2>Các trang chính</h2>
+        <div class="flex-container">
+            <a href="index.html" class="btn">Trang đăng nhập</a>
+            <a href="home.html" class="btn">Trang chủ</a>
+            <a href="workouts.html" class="btn">Bài tập</a>
+            <a href="nutrition.html" class="btn">Dinh dưỡng</a>
+            <a href="profile.html" class="btn">Hồ sơ</a>
+            <a href="settings.html" class="btn">Cài đặt</a>
+        </div>
+    </div>
+    
+    <div class="error-box">
+        <h3>Lỗi thường gặp</h3>
+        <p>Nếu bạn đang gặp lỗi "không chạy được", rất có thể là do một trong các nguyên nhân sau:</p>
+        <ul>
+            <li>Thiếu thư mục <strong>images</strong> hoặc file logo</li>
+            <li>Lỗi JavaScript trong console (nhấn F12 để kiểm tra)</li>
+            <li>Đường dẫn các thư viện bị sai hoặc không tồn tại</li>
+            <li>Cache trình duyệt (Thử Ctrl+F5 để refresh)</li>
+            <li>Không có máy chủ web (xem Các công cụ debug bên dưới)</li>
+        </ul>
+    </div>
+    
+    <div class="card">
+        <h2>Các công cụ debug</h2>
+        <div class="flex-container">
+            <div class="tool-box card">
+                <h3>Kiểm tra thư viện</h3>
+                <p>Kiểm tra tất cả thư viện và framework được sử dụng</p>
+                <a href="test.html" class="btn">Mở trang test</a>
+            </div>
+            
+            <div class="tool-box card">
+                <h3>Chạy không cần Node.js</h3>
+                <p>Hướng dẫn khởi chạy web mà không cần cài đặt Node.js</p>
+                <a href="run-without-node.html" class="btn">Xem hướng dẫn</a>
+            </div>
+            
+            <div class="tool-box card">
+                <h3>Tạo logo</h3>
+                <p>Tạo logo tạm thời nếu bạn không có file logo.png</p>
+                <a href="create-logo.html" class="btn">Tạo logo</a>
+            </div>
+            
+            <div class="tool-box card">
+                <h3>Kiểm tra cấu trúc thư mục</h3>
+                <p>Danh sách các file và thư mục cần thiết</p>
+                <div class="info-box" style="font-family: monospace; overflow-x: auto;">
+                    ├── images/<br>
+                    │   └── logo.png<br>
+                    ├── index.html<br>
+                    ├── home.html<br>
+                    ├── workouts.html<br>
+                    ├── nutrition.html<br>
+                    ├── profile.html<br>
+                    ├── settings.html<br>
+                    ├── *.js (các file JavaScript)<br>
+                    └── *.css (các file CSS)
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2>Reset localStorage</h2>
+        <p>Nếu bạn gặp vấn đề với việc đăng nhập/đăng ký, có thể xóa dữ liệu để bắt đầu lại:</p>
+        <button id="resetBtn" class="btn btn-danger">Xóa dữ liệu localStorage</button>
+        <div id="resetResult"></div>
+    </div>
+    
+    <div class="card">
+        <h2>Tạo dữ liệu mẫu</h2>
+        <p>Tạo tài khoản test và một số dữ liệu mẫu để dễ dàng dùng thử ứng dụng:</p>
+        <button id="sampleDataBtn" class="btn btn-success">Tạo dữ liệu mẫu</button>
+        <div id="sampleResult"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Reset localStorage
+            document.getElementById('resetBtn').addEventListener('click', function() {
+                if (confirm('Bạn có chắc muốn xóa tất cả dữ liệu? Việc này sẽ xóa tất cả tài khoản và thông tin đã lưu.')) {
+                    localStorage.clear();
+                    document.getElementById('resetResult').innerHTML = '<div class="info-box">Đã xóa tất cả dữ liệu. Bạn có thể đăng ký tài khoản mới.</div>';
+                }
+            });
+            
+            // Sample data
+            document.getElementById('sampleDataBtn').addEventListener('click', function() {
+                // Create test user
+                const users = [
+                    {
+                        name: "Test User",
+                        email: "test@example.com",
+                        password: "123456"
+                    }
+                ];
+                
+                localStorage.setItem('users', JSON.stringify(users));
+                document.getElementById('sampleResult').innerHTML = '<div class="info-box">Đã tạo tài khoản test:<br>Email: test@example.com<br>Password: 123456</div>';
+            });
+        });
+    </script>
+</body>
+</html> 
