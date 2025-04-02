@@ -74,8 +74,30 @@ nav ul li a {
 
 /* Footer styles for light/dark mode */
 footer {
-    background-color: var(--footer-bg);
-    transition: background-color 0.3s ease;
+    background-color: #222;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+[data-theme="dark"] footer {
+    background-color: #1a1a1a;
+}
+
+footer h3 {
+    color: #fff;
+}
+
+footer .footer-links a,
+footer .footer-contact p {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="dark"] .social-links a {
+    color: white;
+}
+
+footer .social-links a {
+    color: white;
 }
 
 /* Dark mode specific styles */
