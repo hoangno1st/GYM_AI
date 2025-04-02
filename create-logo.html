@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Logo for Gym Bro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #3498db;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            margin: 20px auto;
+            display: block;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        input, select {
+            padding: 8px;
+            margin: 5px;
+        }
+        .card {
+            background: #f9f9f9;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .warning {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tạo Logo cho Gym Bro</h1>
+    
+    <div class="card">
+        <p>Dùng công cụ này để tạo một logo đơn giản nếu bạn không có file logo.png</p>
+        
+        <div class="warning">
+            <p><strong>Lưu ý:</strong> Chức năng này chỉ tạo logo tạm thời. Bạn nên thay thế bằng logo chính thức sau.</p>
+        </div>
+        
+        <div class="controls">
+            <div>
+                <label for="logoText">Tên:</label>
+                <input type="text" id="logoText" value="GYM BRO" />
+            </div>
+            <div>
+                <label for="logoColor">Màu chữ:</label>
+                <input type="color" id="logoColor" value="#ffffff" />
+            </div>
+            <div>
+                <label for="bgColor">Màu nền:</label>
+                <input type="color" id="bgColor" value="#3498db" />
+            </div>
+            <div>
+                <label for="logoFont">Font chữ:</label>
+                <select id="logoFont">
+                    <option value="Arial Black">Arial Black</option>
+                    <option value="Impact">Impact</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Tahoma">Tahoma</option>
+                </select>
+            </div>
+            <div>
+                <label for="logoSize">Cỡ chữ:</label>
+                <input type="range" id="logoSize" min="20" max="60" value="40" />
+            </div>
+            <div>
+                <button id="updateLogo">Cập nhật</button>
+                <button id="downloadLogo">Tải logo</button>
+            </div>
+        </div>
+        
+        <canvas id="logoCanvas" width="300" height="150"></canvas>
+        
+        <div>
+            <h3>Hướng dẫn sử dụng:</h3>
+            <ol style="text-align: left;">
+                <li>Điều chỉnh các tùy chọn theo ý muốn</li>
+                <li>Nhấn "Cập nhật" để xem kết quả</li>
+                <li>Nhấn "Tải logo" để tải file logo.png</li>
+                <li>Đặt file logo.png vào thư mục "images"</li>
+            </ol>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('logoCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            function drawLogo() {
+                const text = document.getElementById('logoText').value;
+                const textColor = document.getElementById('logoColor').value;
+                const bgColor = document.getElementById('bgColor').value;
+                const font = document.getElementById('logoFont').value;
+                const fontSize = document.getElementById('logoSize').value;
+                
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw background
+                ctx.fillStyle = bgColor;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw text
+                ctx.fillStyle = textColor;
+                ctx.font = `bold ${fontSize}px "${font}"`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                // Add icon
+                ctx.font = `${fontSize}px "FontAwesome"`;
+                
+                // Draw main text
+                ctx.font = `bold ${fontSize}px "${font}"`;
+                ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+                
+                // Add some decoration
+                ctx.strokeStyle = textColor;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(50, canvas.height - 30);
+                ctx.lineTo(canvas.width - 50, canvas.height - 30);
+                ctx.stroke();
+                
+                // Add small text
+                ctx.font = `bold ${fontSize/3}px "${font}"`;
+                ctx.fillText("FITNESS APP", canvas.width / 2, canvas.height - 15);
+            }
+            
+            // Initial draw
+            drawLogo();
+            
+            // Update button
+            document.getElementById('updateLogo').addEventListener('click', drawLogo);
+            
+            // Download button
+            document.getElementById('downloadLogo').addEventListener('click', function() {
+                const link = document.createElement('a');
+                link.download = 'logo.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                alert('Đã tải logo! Hãy đặt file này vào thư mục "images"');
+            });
+        });
+    </script>
+</body>
+</html> 
