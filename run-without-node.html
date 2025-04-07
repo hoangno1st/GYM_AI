@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Bro - Run Without Node.js</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #3498db;
+            text-align: center;
+        }
+        .card {
+            background: #f9f9f9;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        code {
+            font-family: monospace;
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gym Bro - Khởi chạy không cần Node.js</h1>
+    
+    <div class="card">
+        <h2>Lựa chọn phương pháp chạy ứng dụng</h2>
+        
+        <div class="warning">
+            <p><strong>Lưu ý:</strong> Phương pháp này sử dụng CDN thay vì cài đặt thư viện địa phương. Một số tính năng có thể bị giới hạn.</p>
+        </div>
+        
+        <div class="step">
+            <h3>1. Sử dụng Live Server trong VS Code</h3>
+            <p>Nếu bạn đang sử dụng Visual Studio Code:</p>
+            <ol>
+                <li>Cài đặt extension Live Server</li>
+                <li>Click chuột phải vào file <code>index.html</code></li>
+                <li>Chọn "Open with Live Server"</li>
+            </ol>
+        </div>
+        
+        <div class="step">
+            <h3>2. Sử dụng trình duyệt trực tiếp</h3>
+            <p>Mở trực tiếp file <code>index.html</code> với trình duyệt của bạn:</p>
+            <ol>
+                <li>Mở File Explorer/Finder</li>
+                <li>Tìm đến thư mục dự án</li>
+                <li>Double-click vào file <code>index.html</code></li>
+            </ol>
+            <p><strong>Hoặc</strong> bạn có thể kéo file <code>index.html</code> vào cửa sổ trình duyệt.</p>
+        </div>
+        
+        <div class="step">
+            <h3>3. Sử dụng Python SimpleHTTPServer</h3>
+            <p>Nếu bạn đã cài đặt Python:</p>
+            <ol>
+                <li>Mở terminal/command prompt</li>
+                <li>Di chuyển đến thư mục dự án của bạn</li>
+                <li>Nhập lệnh sau:</li>
+            </ol>
+            <code>Python 3: python -m http.server</code><br>
+            <code>Python 2: python -m SimpleHTTPServer</code>
+            <p>Sau đó truy cập <a href="http://localhost:8000" target="_blank">http://localhost:8000</a></p>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2>Kiểm tra nếu gặp lỗi</h2>
+        
+        <p>Nếu trang web không hoạt động đúng cách, bạn có thể kiểm tra:</p>
+        
+        <ol>
+            <li>Mở Developer Console trong trình duyệt (F12) và xem lỗi nào đang xuất hiện</li>
+            <li>Kiểm tra xem tất cả các file .js và .css có tồn tại trong cùng thư mục không</li>
+            <li>Kiểm tra xem thư mục <code>images</code> đã được tạo và chứa file <code>logo.png</code> chưa</li>
+            <li>Thử mở file <code>test.html</code> để kiểm tra các thư viện</li>
+        </ol>
+        
+        <div class="success">
+            <p>Để test các thư viện riêng lẻ, bạn có thể mở:</p>
+            <p><a href="test.html" class="btn">Mở trang test</a></p>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="step">
+            <h3>Tài nguyên hữu ích</h3>
+            <ul>
+                <li><a href="https://getbootstrap.com/docs/5.3/getting-started/introduction/" target="_blank">Tài liệu Bootstrap 5</a></li>
+                <li><a href="https://michalsnik.github.io/aos/" target="_blank">Tài liệu AOS</a></li>
+                <li><a href="https://www.chartjs.org/docs/latest/" target="_blank">Tài liệu Chart.js</a></li>
+                <li><a href="https://fontawesome.com/icons" target="_blank">Font Awesome Icons</a></li>
+                <li><a href="https://sweetalert2.github.io/" target="_blank">Tài liệu SweetAlert2</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="index.html" class="btn">Đi đến ứng dụng</a>
+    </div>
+</body>
+</html> 

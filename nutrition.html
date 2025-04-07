@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Bro - Nutrition</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS animation library -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="nutrition.css">
+
+    <style>
+        :root {
+            --primary-color: #ff4b2b;
+            --secondary-color: #ff416c;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            background-color: #f8f9fa;
+        }
+        
+        /* Language Selector */
+        .language-selector {
+            display: flex;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .lang-btn {
+            padding: 5px 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 40px;
+        }
+        
+        .lang-btn.active {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .lang-btn:not(.active) {
+            background-color: transparent;
+        }
+        
+        .lang-btn:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Navbar styles */
+        .navbar {
+            padding: 0.8rem 0;
+        }
+        
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand img {
+            width: 45px;
+            height: 45px;
+        }
+        
+        .navbar .container {
+            max-width: 1200px;
+        }
+        
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-item {
+            margin: 0 10px;
+        }
+        
+        .nav-link {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.8rem;
+        }
+        
+        .nav-link i {
+            margin-right: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .dropdown {
+            margin-left: 15px;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        header.sticky-top {
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            left: 0;
+            right: 0;
+            overflow: hidden;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/nutrition-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .nutrition-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .nutrition-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .macro-progress {
+            height: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .meal-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .meal-item:last-child {
+            border-bottom: none;
+        }
+
+        .water-tracker {
+            background: linear-gradient(45deg, #00c6fb, #005bea);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .water-tracker h3 {
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .water-progress {
+            height: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .water-fill {
+            background: rgba(255,255,255,0.8);
+            height: 100%;
+            transition: width 0.5s ease;
+            position: relative;
+            border-radius: 10px;
+        }
+
+        .water-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="0.5" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            animation: wave 3s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(-20px);
+            }
+        }
+
+        .water-bottles {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .water-bottle {
+            width: 30px;
+            height: 55px;
+            margin: 0 5px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 5px 5px 15px 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .water-bottle.filled {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .water-bottle:before {
+            content: '';
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 7px;
+            background-color: inherit;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .water-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .water-btn {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: none;
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .water-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .water-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .water-stat {
+            text-align: center;
+            padding: 5px;
+        }
+
+        .water-stat-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .water-stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .water-history {
+            margin-top: 15px;
+            height: 50px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding-top: 5px;
+        }
+
+        .water-day {
+            width: 12%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px 3px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .water-day:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .water-day-label {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            white-space: nowrap;
+        }
+
+        .water-reminder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 7px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .water-reminder:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .water-reminder i {
+            margin-right: 7px;
+        }
+
+        .add-meal-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .add-meal-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0;
+            }
+            
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .add-meal-btn {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="home.html">
+                    <img src="images/logo.png" alt="Gym Bro Logo" class="me-2">
+                    <span class="fw-bold" style="font-size: 1.6rem; letter-spacing: 0.5px;">GYM BRO</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="home.html">
+                                <i class="fas fa-home"></i>
+                                <span>HOME</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="workouts.html">
+                                <i class="fas fa-dumbbell"></i>
+                                <span>WORKOUTS</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="nutrition.html">
+                                <i class="fas fa-apple-alt"></i>
+                                <span>NUTRITION</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="community.html">
+                                <i class="fas fa-users"></i>
+                                <span>COMMUNITY</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="language-selector me-3">
+                        <a href="#" class="lang-btn active" data-lang="en">EN</a>
+                        <a href="#" class="lang-btn" data-lang="vi">VI</a>
+                    </div>
+                    <div class="dropdown">
+                        <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="user-profile" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-profile">
+                            <li><a class="dropdown-item" href="settings.html"><i class="fas fa-cog"></i><span> Settings</span></a></li>
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user"></i><span> Profile</span></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i><span> Logout</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section mb-5">
+            <div class="container">
+                <h1 class="display-4 mb-4" data-aos="fade-up">Track Your Nutrition</h1>
+                <p class="lead" data-aos="fade-up" data-aos-delay="100">Manage your diet to achieve your fitness goals</p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="container">
+            <div class="row">
+                <!-- Daily Summary -->
+                <div class="col-lg-8">
+                    <div class="nutrition-card p-4 mb-4" data-aos="fade-up">
+                        <h2 class="mb-4">Today's Overview</h2>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h5>Calories</h5>
+                                <div class="d-flex justify-content-between" id="calories-progress">
+                                    <span>0 / 2,000 kcal</span>
+                                    <span>0%</span>
+                                </div>
+                                <div class="progress macro-progress">
+                                    <div class="progress-bar bg-primary" id="calories-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Protein</h5>
+                                <div class="d-flex justify-content-between" id="protein-progress">
+                                    <span>0g / 120g</span>
+                                    <span>0%</span>
+                                </div>
+                                <div class="progress macro-progress">
+                                    <div class="progress-bar bg-success" id="protein-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Carbs</h5>
+                                <div class="d-flex justify-content-between" id="carbs-progress">
+                                    <span>0g / 200g</span>
+                                    <span>0%</span>
+                                </div>
+                                <div class="progress macro-progress">
+                                    <div class="progress-bar bg-warning" id="carbs-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Fat</h5>
+                                <div class="d-flex justify-content-between" id="fat-progress">
+                                    <span>0g / 60g</span>
+                                    <span>0%</span>
+                                </div>
+                                <div class="progress macro-progress">
+                                    <div class="progress-bar bg-danger" id="fat-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Meals List -->
+                    <div class="nutrition-card p-4" data-aos="fade-up">
+                        <h2 class="mb-4">Today's Meals</h2>
+                        <div class="meal-list">
+                            <!-- Will be populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Water Tracker -->
+                    <div class="nutrition-card water-tracker mb-4" data-aos="fade-left">
+                        <h3><i class="fas fa-tint me-2"></i>Water Intake</h3>
+                        
+                        <div class="water-stats">
+                            <div class="water-stat">
+                                <div class="water-stat-value" id="current-amount">1.5L</div>
+                                <div class="water-stat-label">Current</div>
+                            </div>
+                            <div class="water-stat">
+                                <div class="water-stat-value">2.5L</div>
+                                <div class="water-stat-label">Goal</div>
+                            </div>
+                            <div class="water-stat">
+                                <div class="water-stat-value" id="water-percentage">60%</div>
+                                <div class="water-stat-label">Progress</div>
+                            </div>
+                        </div>
+                        
+                        <div class="water-progress mb-3">
+                            <div class="water-fill" style="width: 60%">
+                                <div class="water-wave"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="water-bottles">
+                            <div class="water-bottle filled" data-index="1"></div>
+                            <div class="water-bottle filled" data-index="2"></div>
+                            <div class="water-bottle filled" data-index="3"></div>
+                            <div class="water-bottle filled" data-index="4"></div>
+                            <div class="water-bottle filled" data-index="5"></div>
+                            <div class="water-bottle filled" data-index="6"></div>
+                            <div class="water-bottle" data-index="7"></div>
+                            <div class="water-bottle" data-index="8"></div>
+                            <div class="water-bottle" data-index="9"></div>
+                            <div class="water-bottle" data-index="10"></div>
+                        </div>
+                        
+                        <div class="water-buttons">
+                            <button class="water-btn" data-amount="100">+100ml</button>
+                            <button class="water-btn" data-amount="250" id="add-water">+250ml</button>
+                            <button class="water-btn" data-amount="500">+500ml</button>
+                            <button class="water-btn" id="undo-water" title="Undo last drink"><i class="fas fa-undo"></i></button>
+                            <button class="water-btn" id="reset-water" title="Reset water intake"><i class="fas fa-sync-alt"></i></button>
+                        </div>
+                        
+                        <div class="water-history">
+                            <div class="water-day" style="height: 60%" title="Monday: 1.5L">
+                                <div class="water-day-label">Mon</div>
+                            </div>
+                            <div class="water-day" style="height: 40%" title="Tuesday: 1.0L">
+                                <div class="water-day-label">Tue</div>
+                            </div>
+                            <div class="water-day" style="height: 80%" title="Wednesday: 2.0L">
+                                <div class="water-day-label">Wed</div>
+                            </div>
+                            <div class="water-day" style="height: 70%" title="Thursday: 1.8L">
+                                <div class="water-day-label">Thu</div>
+                            </div>
+                            <div class="water-day" style="height: 50%" title="Friday: 1.3L">
+                                <div class="water-day-label">Fri</div>
+                            </div>
+                            <div class="water-day" style="height: 90%" title="Saturday: 2.3L">
+                                <div class="water-day-label">Sat</div>
+                            </div>
+                            <div class="water-day" style="height: 60%" title="Sunday: 1.5L">
+                                <div class="water-day-label">Sun</div>
+                            </div>
+                        </div>
+                        
+                        <div class="water-reminder" id="toggle-reminder">
+                            <i class="fas fa-bell"></i> <span>Set drinking reminders</span>
+                        </div>
+                    </div>
+
+                    <!-- Nutrition Tips -->
+                    <div class="nutrition-card p-4" data-aos="fade-left">
+                        <h3 class="mb-4">Nutrition Tips</h3>
+                        <div class="tips-list">
+                            <div class="tip-item mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Eat enough protein for muscle growth</span>
+                            </div>
+                            <div class="tip-item mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Stay hydrated throughout the day</span>
+                            </div>
+                            <div class="tip-item mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Include plenty of vegetables and fruits</span>
+                            </div>
+                            <div class="tip-item">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Limit processed foods</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Meal Button -->
+        <button class="add-meal-btn" data-bs-toggle="modal" data-bs-target="#addMealModal">
+            <i class="fas fa-plus"></i>
+        </button>
+    </main>
+
+    <!-- Add Meal Modal -->
+    <div class="modal fade" id="addMealModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Meal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addMealForm">
+                        <div class="mb-3">
+                            <label class="form-label">Meal Type</label>
+                            <select class="form-select" id="meal-type" required>
+                                <option value="breakfast">Breakfast</option>
+                                <option value="lunch">Lunch</option>
+                                <option value="dinner">Dinner</option>
+                                <option value="snack">Snack</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Time</label>
+                            <input type="time" class="form-control" id="meal-time" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Select Food</label>
+                            <select class="form-select" id="food-select" required>
+                                <option value="">-- Select Food --</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label class="form-label">Calories (kcal)</label>
+                                <input type="number" class="form-control" id="calories-input" required readonly>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label">Protein (g)</label>
+                                <input type="number" class="form-control" id="protein-input" required readonly>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label">Carbs (g)</label>
+                                <input type="number" class="form-control" id="carbs-input" required readonly>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label">Fat (g)</label>
+                                <input type="number" class="form-control" id="fat-input" required readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-control" id="meal-notes" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" form="addMealForm" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <img src="images/logo.png" alt="Gym Bro Logo" width="100px" class="mb-3">
+                    <p>Your Ultimate Fitness Companion</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="home.html" class="text-decoration-none text-light">Home</a></li>
+                        <li><a href="workouts.html" class="text-decoration-none text-light">Workouts</a></li>
+                        <li><a href="nutrition.html" class="text-decoration-none text-light">Nutrition</a></li>
+                        <li><a href="community.html" class="text-decoration-none text-light">Community</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact</h5>
+                    <p><i class="fas fa-envelope me-2"></i> support@gymbro.com</p>
+                    <p><i class="fas fa-phone me-2"></i> +1 234 567 8900</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Gym Bro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="nutrition.js"></script>
+    <script src="language.js"></script>
+
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Water tracker functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Water tracker initialized');
+            
+            // Initial values
+            let currentWaterAmount = 0; // In liters
+            const goalAmount = 2.5; // In liters
+            let lastDrink = 0; // To store the last drink amount for undo
+            
+            // Get DOM elements
+            const waterBtns = document.querySelectorAll('.water-btn[data-amount]');
+            const undoBtn = document.getElementById('undo-water');
+            const resetBtn = document.getElementById('reset-water');
+            const waterFill = document.querySelector('.water-fill');
+            const currentAmountEl = document.getElementById('current-amount');
+            const waterPercentageEl = document.getElementById('water-percentage');
+            const waterBottles = document.querySelectorAll('.water-bottle');
+            const reminderToggle = document.getElementById('toggle-reminder');
+            
+            console.log('Water buttons found:', waterBtns.length);
+            
+            // Load water data from localStorage
+            loadWaterData();
+            
+            // Set initial water level
+            updateWaterDisplay();
+            
+            // Add water when buttons are clicked
+            waterBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Water button clicked:', this.dataset.amount);
+                    const amount = parseInt(this.dataset.amount) / 1000; // Convert to liters
+                    addWater(amount);
+                });
+            });
+            
+            // Water bottle clicks
+            waterBottles.forEach(bottle => {
+                bottle.addEventListener('click', function() {
+                    console.log('Bottle clicked:', this.dataset.index);
+                    const index = parseInt(this.dataset.index);
+                    updateBottles(index);
+                });
+            });
+            
+            // Undo button
+            if (undoBtn) {
+                undoBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Undo button clicked');
+                    if (lastDrink > 0) {
+                        currentWaterAmount = Math.max(0, currentWaterAmount - lastDrink);
+                        updateWaterDisplay();
+                        lastDrink = 0;
+                        
+                        // Save to localStorage
+                        saveWaterData();
+                        
+                        // Show undo notification
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'info',
+                            title: 'Last drink removed',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            toast: true
+                        });
+                    }
+                });
+            }
+            
+            // Reset button
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Reset button clicked');
+                    
+                    // Ask for confirmation
+                    Swal.fire({
+                        title: 'Reset water intake?',
+                        text: 'This will reset your water intake to 0 for today.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Reset',
+                        cancelButtonText: 'Cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Reset water amount
+                            currentWaterAmount = 0;
+                            lastDrink = 0;
+                            updateWaterDisplay();
+                            saveWaterData();
+                            
+                            // Show reset notification
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Water intake reset to 0',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                toast: true
+                            });
+                        }
+                    });
+                });
+            }
+            
+            // Reminder toggle
+            if (reminderToggle) {
+                reminderToggle.addEventListener('click', function() {
+                    console.log('Reminder toggle clicked');
+                    Swal.fire({
+                        title: 'Set Water Reminders',
+                        html: `
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="reminder-active" checked>
+                                <label class="form-check-label" for="reminder-active">Enable reminders</label>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Remind every:</label>
+                                <select class="form-select" id="reminder-interval">
+                                    <option value="30">30 minutes</option>
+                                    <option value="60" selected>1 hour</option>
+                                    <option value="90">1.5 hours</option>
+                                    <option value="120">2 hours</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Active hours:</label>
+                                <div class="d-flex gap-2">
+                                    <input type="time" class="form-control" id="reminder-start" value="08:00">
+                                    <span class="align-self-center">to</span>
+                                    <input type="time" class="form-control" id="reminder-end" value="22:00">
+                                </div>
+                            </div>
+                        `,
+                        showCancelButton: true,
+                        confirmButtonText: 'Save',
+                        cancelButtonText: 'Cancel',
+                        preConfirm: () => {
+                            // This would save the reminder settings in a real app
+                            return {
+                                active: document.getElementById('reminder-active').checked,
+                                interval: document.getElementById('reminder-interval').value,
+                                startTime: document.getElementById('reminder-start').value,
+                                endTime: document.getElementById('reminder-end').value
+                            };
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Reminders set!',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                toast: true
+                            });
+                        }
+                    });
+                });
+            }
+            
+            // Function to update water display
+            function updateWaterDisplay() {
+                const percentage = Math.min(100, Math.round((currentWaterAmount / goalAmount) * 100));
+                console.log('Water percentage:', percentage);
+                
+                // Update DOM elements
+                if (waterFill) waterFill.style.width = `${percentage}%`;
+                if (currentAmountEl) currentAmountEl.textContent = `${currentWaterAmount.toFixed(1)}L`;
+                if (waterPercentageEl) waterPercentageEl.textContent = `${percentage}%`;
+                
+                // Update bottles
+                const bottlesToFill = Math.ceil((currentWaterAmount / goalAmount) * 10);
+                console.log('Bottles to fill:', bottlesToFill);
+                
+                waterBottles.forEach((bottle, index) => {
+                    if (index < bottlesToFill) {
+                        bottle.classList.add('filled');
+                    } else {
+                        bottle.classList.remove('filled');
+                    }
+                });
+            }
+            
+            // Function to update bottles based on user click
+            function updateBottles(index) {
+                // Calculate new water amount based on clicked bottle
+                const newAmount = (index / 10) * goalAmount;
+                currentWaterAmount = newAmount;
+                updateWaterDisplay();
+                
+                // Save to localStorage
+                saveWaterData();
+                
+                // Show notification
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'info',
+                    title: `Water set to ${newAmount.toFixed(1)}L`,
+                    showConfirmButton: false,
+                    timer: 1500,
+                    toast: true
+                });
+            }
+            
+            // Function to add water
+            function addWater(amount) {
+                console.log('Adding water:', amount, 'L');
+                lastDrink = amount;
+                currentWaterAmount = Math.min(goalAmount, currentWaterAmount + amount);
+                updateWaterDisplay();
+                
+                // Save to localStorage
+                saveWaterData();
+                
+                // Show success notification
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: `Added ${amount * 1000}ml of water!`,
+                    showConfirmButton: false,
+                    timer: 1500,
+                    toast: true
+                });
+            }
+            
+            // Save water data to localStorage
+            function saveWaterData() {
+                const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+                
+                const waterData = {
+                    amount: currentWaterAmount,
+                    goal: goalAmount,
+                    date: today,
+                    lastUpdated: new Date().toISOString()
+                };
+                
+                localStorage.setItem('gymBroWaterData', JSON.stringify(waterData));
+                console.log('Water data saved:', waterData);
+                
+                // Update home page water display if on the same page
+                updateHomePageWaterDisplay(currentWaterAmount, goalAmount);
+            }
+            
+            // Load water data from localStorage
+            function loadWaterData() {
+                const today = new Date().toISOString().split('T')[0];
+                const savedData = localStorage.getItem('gymBroWaterData');
+                
+                if (savedData) {
+                    try {
+                        const waterData = JSON.parse(savedData);
+                        console.log('Loaded water data:', waterData);
+                        
+                        // Check if data is from today
+                        if (waterData.date === today) {
+                            currentWaterAmount = waterData.amount;
+                            console.log('Using today\'s water data:', currentWaterAmount);
+                        } else {
+                            console.log('Water data not from today, using default');
+                            currentWaterAmount = 0;
+                        }
+                    } catch (error) {
+                        console.error('Error parsing water data:', error);
+                        currentWaterAmount = 0;
+                    }
+                } else {
+                    console.log('No saved water data found');
+                    currentWaterAmount = 0;
+                }
+            }
+            
+            // Function to update home page water display if we're on the same page
+            function updateHomePageWaterDisplay(amount, goal) {
+                // Try to update home page elements if they exist
+                const homeCurrentWater = document.getElementById('current-water');
+                const homeWaterRemaining = document.getElementById('water-remaining');
+                const homeWaterProgress = document.getElementById('water-progress');
+                
+                if (homeCurrentWater) {
+                    homeCurrentWater.textContent = amount.toFixed(1);
+                }
+                
+                if (homeWaterRemaining) {
+                    const remaining = Math.max(0, goal - amount).toFixed(1);
+                    homeWaterRemaining.textContent = remaining;
+                }
+                
+                if (homeWaterProgress) {
+                    const percentage = Math.min(100, Math.round((amount / goal) * 100));
+                    homeWaterProgress.style.width = `${percentage}%`;
+                    homeWaterProgress.setAttribute('aria-valuenow', percentage);
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

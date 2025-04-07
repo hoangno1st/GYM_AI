@@ -1,0 +1,2272 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Bro - Home</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS animation library -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="./integrated_home.css">
+
+    <style>
+        :root {
+            --primary-color: #ff4b2b;
+            --secondary-color: #ff416c;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        /* Language Selector */
+        .language-selector {
+            display: flex;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .lang-btn {
+            padding: 5px 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 40px;
+        }
+        
+        .lang-btn.active {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .lang-btn:not(.active) {
+            background-color: transparent;
+        }
+        
+        .lang-btn:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Navbar styles */
+        .navbar {
+            padding: 0.8rem 0;
+        }
+        
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand img {
+            width: 45px;
+            height: 45px;
+        }
+        
+        .navbar .container {
+            max-width: 1200px;
+        }
+        
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-item {
+            margin: 0 10px;
+        }
+        
+        .nav-link {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.8rem;
+        }
+        
+        .nav-link i {
+            margin-right: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .dropdown {
+            margin-left: 15px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://thethaodonga.com/wp-content/uploads/2022/01/anh-gym-nghe-thuat-8.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 75, 43, 0.2),
+                rgba(255, 65, 108, 0.2)
+            );
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.8rem;
+            margin-bottom: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: 500;
+        }
+
+        .hero-buttons {
+            margin-top: 2rem;
+        }
+
+        .btn-custom {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-start {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255,75,43,0.4);
+            color: white;
+        }
+
+        .btn-tips {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-tips:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        /* Quick Access Section */
+        .quick-access {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .quick-access-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .quick-access-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .quick-access-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Clock */
+        .clock-container {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .btn-custom {
+                margin: 10px;
+                display: block;
+                width: 80%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .clock-container {
+                position: fixed;
+                bottom: 20px;
+                top: auto;
+                right: 20px;
+                font-size: 1.2em;
+            }
+        }
+
+        /* New Clock Design */
+        .clock-section {
+            padding: 2rem 0;
+            background: linear-gradient(45deg, rgba(255,75,43,0.1), rgba(255,65,108,0.1));
+            margin-bottom: 2rem;
+        }
+
+        .clock-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .time-unit {
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            min-width: 120px;
+            box-shadow: 0 5px 15px rgba(255,75,43,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .time-unit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            pointer-events: none;
+        }
+
+        .time-value {
+            font-size: 3rem;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.9;
+        }
+
+        .time-separator {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @media (max-width: 768px) {
+            .clock-wrapper {
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 1rem;
+            }
+
+            .time-unit {
+                min-width: 90px;
+                padding: 1rem;
+            }
+
+            .time-value {
+                font-size: 2rem;
+            }
+
+            .time-label {
+                font-size: 0.8rem;
+            }
+
+            .time-separator {
+                font-size: 2rem;
+            }
+        }
+
+        /* Error message styles */
+        .error-message {
+            display: none;
+            color: red;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid red;
+            border-radius: 5px;
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+        
+        /* Loading indicator */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+        }
+        
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Goal Tracking Styles */
+        .goals-section .card {
+            transition: transform 0.3s;
+        }
+
+        .goals-section .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Stats Styles */
+        .stats-section .card {
+            transition: all 0.3s;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .stats-section .card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .stats-section .card-body {
+            padding: 1.5rem;
+        }
+
+        .stats-section .display-4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-section .display-5 {
+            font-size: 2.5rem;
+        }
+
+        /* Water Button Styles */
+        #add-water, #reset-water {
+            transition: all 0.2s;
+        }
+
+        #add-water:hover {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        /* Calendar Styles */
+        .calendar-container {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .calendar-header {
+            display: flex;
+            width: 100%;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .calendar-cell {
+            flex: 1;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8px;
+        }
+
+        .calendar-body {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .calendar-date {
+            flex: 0 0 14.28%;
+            min-height: 80px;
+            border-bottom: 1px solid #dee2e6;
+            border-right: 1px solid #dee2e6;
+            padding: 5px;
+            position: relative;
+            background-color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .calendar-date:nth-child(7n) {
+            border-right: none;
+        }
+
+        .calendar-date.disabled {
+            background-color: #f5f5f5;
+            color: #aaa;
+        }
+
+        .calendar-date:hover {
+            background-color: #f8f9fa;
+        }
+
+        .calendar-date.has-event {
+            background-color: rgba(0, 123, 255, 0.05);
+        }
+
+        .date-number {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            height: 25px;
+            width: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        .today .date-number {
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+        }
+
+        /* Carousel indicators - updated for inline positioning */
+        .carousel-indicators {
+            margin: 0;
+            position: static !important;
+        }
+        
+        .carousel-indicators [data-bs-target] {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 75, 43, 0.2);
+            border: none;
+            margin: 0 3px;
+            opacity: 0.6;
+            transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .carousel-indicators [data-bs-target]:hover {
+            opacity: 0.8;
+        }
+        
+        .carousel-indicators [data-bs-target].active {
+            opacity: 1;
+            background-color: var(--primary-color);
+            transform: scale(1.2);
+        }
+        
+        /* Ensure flex alignment of carousel controls and indicators */
+        .carousel-nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading indicator -->
+    <div class="loading" id="loading">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin fa-3x"></i>
+        </div>
+    </div>
+    
+    <!-- Error message container -->
+    <div id="error-message" class="error-message"></div>
+    
+    <div class="clock-container">
+        <div id="clock">00:00:00</div>
+    </div>
+    
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="home.html">
+                    <img src="images/logo.png" alt="Gym Bro Logo" class="me-2">
+                    <span class="fw-bold" style="font-size: 1.6rem; letter-spacing: 0.5px;">GYM BRO</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="home.html">
+                                <i class="fas fa-home"></i>
+                                <span>HOME</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="workouts.html">
+                                <i class="fas fa-dumbbell"></i>
+                                <span>WORKOUTS</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="nutrition.html">
+                                <i class="fas fa-apple-alt"></i>
+                                <span>NUTRITION</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="community.html">
+                                <i class="fas fa-users"></i>
+                                <span>COMMUNITY</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="language-selector me-3">
+                        <a href="#" class="lang-btn active" data-lang="en">EN</a>
+                        <a href="#" class="lang-btn" data-lang="vi">VI</a>
+                    </div>
+                    <div class="dropdown">
+                        <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="user-profile" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-profile">
+                            <li><a class="dropdown-item" href="settings.html"><i class="fas fa-cog"></i><span> Settings</span></a></li>
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user"></i><span> Profile</span></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i><span> Logout</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+            <h1>Welcome to Gym Bro</h1>
+            <p>Your ultimate fitness companion</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-custom btn-start">Start Workout</a>
+                    <a href="#" class="btn btn-custom btn-tips">Today's Tips</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Clock Section -->
+        <section class="clock-section">
+            <div class="container">
+                <div class="clock-wrapper" data-aos="zoom-in">
+                    <div class="time-unit">
+                        <div class="time-value" id="hours">00</div>
+                        <div class="time-label">Hours</div>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-unit">
+                        <div class="time-value" id="minutes">00</div>
+                        <div class="time-label">Minutes</div>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-unit">
+                        <div class="time-value" id="seconds">00</div>
+                        <div class="time-label">Seconds</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-access">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="quick-access-card text-center">
+                            <i class="fas fa-dumbbell quick-access-icon"></i>
+                            <h3>Workouts</h3>
+                            <p>Access your personalized workout plans</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="quick-access-card text-center">
+                            <i class="fas fa-apple-alt quick-access-icon"></i>
+                            <h3>Nutrition</h3>
+                            <p>Track your daily nutrition and meals</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="quick-access-card text-center">
+                            <i class="fas fa-chart-line quick-access-icon"></i>
+                            <h3>Goals</h3>
+                            <p>Set and monitor your fitness goals</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily Fitness Tips -->
+        <section id="daily-tips" class="daily-tips py-5 mb-5">
+            <div class="container">
+                <h2 class="text-center mb-4" data-aos="fade-up">Daily Fitness Tips</h2>
+                <div id="tipsCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="card p-4 text-center" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="display-1 text-primary mb-3"><i class="fas fa-water"></i></div>
+                    <h3>Stay Hydrated</h3>
+                    <p>Drink at least 8 glasses of water daily for optimal performance.</p>
+                </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card p-4 text-center" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="display-1 text-primary mb-3"><i class="fas fa-bed"></i></div>
+                    <h3>Quality Sleep</h3>
+                    <p>Aim for 7-8 hours of sleep for better recovery and growth.</p>
+                </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card p-4 text-center" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="display-1 text-primary mb-3"><i class="fas fa-carrot"></i></div>
+                    <h3>Protein Intake</h3>
+                    <p>Consume 1.6-2.2g of protein per kg of bodyweight daily.</p>
+                </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card p-4 text-center" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="display-1 text-primary mb-3"><i class="fas fa-running"></i></div>
+                    <h3>Warm Up Properly</h3>
+                    <p>Always warm up for 5-10 minutes before intense workouts to prevent injury.</p>
+                </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card p-4 text-center" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="display-1 text-primary mb-3"><i class="fas fa-clock"></i></div>
+                    <h3>Meal Timing</h3>
+                    <p>Eat a balanced meal 2-3 hours before working out for optimal energy.</p>
+                </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card p-4 text-center" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="display-1 text-primary mb-3"><i class="fas fa-heart"></i></div>
+                    <h3>Cardio Benefits</h3>
+                    <p>Include 150 minutes of moderate cardio weekly for heart health.</p>
+                </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card p-4 text-center" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="display-1 text-primary mb-3"><i class="fas fa-weight"></i></div>
+                    <h3>Progressive Overload</h3>
+                    <p>Gradually increase weights or reps to continue making gains.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mt-3" style="gap: 5px;">
+                        <button class="carousel-control-prev position-relative m-0" type="button" data-bs-target="#tipsCarousel" data-bs-slide="prev">
+                            <span class="btn btn-primary btn-sm"><i class="fas fa-chevron-left"></i></span>
+                        </button>
+                        <div class="carousel-indicators m-0">
+                            <button type="button" data-bs-target="#tipsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#tipsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#tipsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <button type="button" data-bs-target="#tipsCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                            <button type="button" data-bs-target="#tipsCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                            <button type="button" data-bs-target="#tipsCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                            <button type="button" data-bs-target="#tipsCarousel" data-bs-slide-to="6" aria-label="Slide 7"></button>
+                        </div>
+                        <button class="carousel-control-next position-relative m-0" type="button" data-bs-target="#tipsCarousel" data-bs-slide="next">
+                            <span class="btn btn-primary btn-sm"><i class="fas fa-chevron-right"></i></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Goal Tracking -->
+        <section class="goals-section py-5 mb-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-4" data-aos="fade-up">Mục tiêu cá nhân</h2>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <!-- Weight Goal -->
+                    <div class="col" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="card-title m-0">Cân nặng</h5>
+                                    <i class="fas fa-weight text-primary fa-2x"></i>
+                                </div>
+                                <div class="current-vs-goal mb-2 d-flex justify-content-between">
+                                    <span>Hiện tại: <strong id="current-weight">75</strong> kg</span>
+                                    <span>Mục tiêu: <strong id="target-weight">70</strong> kg</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div id="weight-progress" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="mt-2 text-muted">Còn <strong id="weight-remaining">5</strong> kg để đạt mục tiêu</p>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#weightGoalModal">Cập nhật</button>
+                                    <button class="btn btn-sm btn-outline-secondary" id="sync-weight-btn">Đồng bộ từ thiết bị</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Workout Goal -->
+                    <div class="col" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="card-title m-0">Buổi tập</h5>
+                                    <i class="fas fa-dumbbell text-danger fa-2x"></i>
+                                </div>
+                                <div class="current-vs-goal mb-2 d-flex justify-content-between">
+                                    <span>Đã tập: <strong id="current-workouts">8</strong> buổi</span>
+                                    <span>Mục tiêu: <strong id="target-workouts">12</strong> buổi</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div id="workout-progress" class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 67%" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="mt-2 text-muted">Còn <strong id="workouts-remaining">4</strong> buổi tập trong tháng này</p>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#workoutGoalModal">Cập nhật</button>
+                                    <button class="btn btn-sm btn-outline-secondary" id="sync-workout-activity">Đồng bộ từ Google Fit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Water Goal -->
+                    <div class="col" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="card-title m-0">Uống nước</h5>
+                                    <i class="fas fa-tint text-info fa-2x"></i>
+                                </div>
+                                <div class="current-vs-goal mb-2 d-flex justify-content-between">
+                                    <span>Đã uống: <strong id="current-water">1.5</strong> L</span>
+                                    <span>Mục tiêu: <strong id="target-water">2.5</strong> L</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div id="water-progress" class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="mt-2 text-muted">Còn <strong id="water-remaining">1</strong> L để đạt mục tiêu hôm nay</p>
+                                <div class="btn-group d-flex" role="group">
+                                    <button id="add-water" class="btn btn-sm btn-outline-info flex-grow-1"><i class="fas fa-plus"></i> 0.25L</button>
+                                    <button id="reset-water" class="btn btn-sm btn-outline-secondary"><i class="fas fa-redo"></i></button>
+                                    <button id="sync-water" class="btn btn-sm btn-outline-primary"><i class="fas fa-sync"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workout Calendar -->
+        <section class="calendar-section py-5 mb-5">
+            <div class="container">
+                <h2 class="text-center mb-4" data-aos="fade-up">Lịch tập luyện</h2>
+                <div class="row">
+                    <div class="col-md-9 mx-auto" data-aos="fade-up">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <button id="prev-month" class="btn btn-sm btn-outline-primary"><i class="fas fa-chevron-left"></i></button>
+                                    <h4 id="calendar-month-year" class="m-0">Tháng 5, 2023</h4>
+                                    <button id="next-month" class="btn btn-sm btn-outline-primary"><i class="fas fa-chevron-right"></i></button>
+                                </div>
+                                
+                                <div class="calendar-container">
+                                    <div class="calendar-header d-flex">
+                                        <div class="calendar-cell fw-bold">CN</div>
+                                        <div class="calendar-cell fw-bold">T2</div>
+                                        <div class="calendar-cell fw-bold">T3</div>
+                                        <div class="calendar-cell fw-bold">T4</div>
+                                        <div class="calendar-cell fw-bold">T5</div>
+                                        <div class="calendar-cell fw-bold">T6</div>
+                                        <div class="calendar-cell fw-bold">T7</div>
+                                    </div>
+                                    <div id="calendar-body">
+                                        <!-- Calendar days will be generated by JavaScript -->
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-3 d-flex justify-content-between align-items-center">
+                                    <div class="d-flex flex-wrap">
+                                        <div class="me-3"><i class="fas fa-square text-primary"></i> Cardio</div>
+                                        <div class="me-3"><i class="fas fa-square text-danger"></i> Tập sức mạnh</div>
+                                        <div class="me-3"><i class="fas fa-square text-success"></i> Linh hoạt</div>
+                                        <div class="me-3"><i class="fas fa-square text-warning"></i> HIIT</div>
+                                    </div>
+                                    <button id="checkin-workout" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Điểm danh hôm nay</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Stats -->
+        <section class="stats-section py-5 mb-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-4" data-aos="fade-up">Thống kê nhanh</h2>
+                <div class="row">
+                    <div class="col-12 mb-3 text-end">
+                        <div class="btn-group">
+                            <button id="stats-today" class="btn btn-sm btn-outline-primary active">Hôm nay</button>
+                            <button id="stats-week" class="btn btn-sm btn-outline-primary">Tuần này</button>
+                            <button id="stats-month" class="btn btn-sm btn-outline-primary">Tháng này</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                    <div class="col" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="card h-100 border-0 shadow-sm text-center">
+                            <div class="card-body">
+                                <div class="display-4 text-primary"><i class="fas fa-fire-alt"></i></div>
+                                <h3 class="h5 mt-3">Calo đã đốt</h3>
+                                <div class="display-5 fw-bold" id="calories-burned">750</div>
+                                <p class="text-muted" id="calories-period">hôm nay</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="card h-100 border-0 shadow-sm text-center">
+                            <div class="card-body">
+                                <div class="display-4 text-success"><i class="fas fa-heartbeat"></i></div>
+                                <h3 class="h5 mt-3">Thời gian tập</h3>
+                                <div class="display-5 fw-bold" id="workout-time">1.5</div>
+                                <p class="text-muted" id="time-period">giờ hôm nay</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="card h-100 border-0 shadow-sm text-center">
+                            <div class="card-body">
+                                <div class="display-4 text-danger"><i class="fas fa-award"></i></div>
+                                <h3 class="h5 mt-3">Thành tích</h3>
+                                <div class="display-5 fw-bold" id="achievements">6</div>
+                                <p class="text-muted">đã đạt được</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="card h-100 border-0 shadow-sm text-center">
+                            <div class="card-body">
+                                <div class="display-4 text-warning"><i class="fas fa-bolt"></i></div>
+                                <h3 class="h5 mt-3">Streak hiện tại</h3>
+                                <div class="display-5 fw-bold" id="current-streak">5</div>
+                                <p class="text-muted">ngày liên tiếp</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="workout-history py-5 mb-5">
+            <div class="container">
+                <h2 class="text-center mb-4" data-aos="fade-up">Lịch sử tập luyện</h2>
+                <div id="workout-history-list" class="list-group">
+                    <!-- Workout history items will be dynamically added here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-md-4" data-aos="fade-right">
+                    <img src="images/logo.png" alt="Gym Bro Logo" class="mb-3">
+                    <p class="fw-bold">Your Ultimate Fitness Companion</p>
+            </div>
+                <div class="col-md-4" data-aos="fade-up">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="home.html" class="text-decoration-none text-light">Home</a></li>
+                        <li><a href="workouts.html" class="text-decoration-none text-light">Workouts</a></li>
+                        <li><a href="nutrition.html" class="text-decoration-none text-light">Nutrition</a></li>
+                        <li><a href="community.html" class="text-decoration-none text-light">Community</a></li>
+                </ul>
+            </div>
+                <div class="col-md-4" data-aos="fade-left">
+                    <h5>Contact Us</h5>
+                    <p><i class="fas fa-envelope me-2"></i> support@gymbro.com</p>
+                    <p><i class="fas fa-phone me-2"></i> +1 234 567 8900</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center" data-aos="fade-up">
+                <p class="mb-0">&copy; 2025 Gym Bro. All rights reserved.</p>
+        </div>
+        </div>
+    </footer>
+    
+    <!-- Goal Update Modals -->
+    <div class="modal fade" id="weightGoalModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cập nhật mục tiêu cân nặng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="weight-goal-form">
+                        <div class="mb-3">
+                            <label for="current-weight-input" class="form-label">Cân nặng hiện tại (kg)</label>
+                            <input type="number" class="form-control" id="current-weight-input" step="0.1" min="30" max="200">
+                        </div>
+                        <div class="mb-3">
+                            <label for="target-weight-input" class="form-label">Cân nặng mục tiêu (kg)</label>
+                            <input type="number" class="form-control" id="target-weight-input" step="0.1" min="30" max="200">
+                        </div>
+                    </form>
+                            </div>
+                <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="save-weight-goal">Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="workoutGoalModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cập nhật mục tiêu tập luyện</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="workout-goal-form">
+                        <div class="mb-3">
+                            <label for="current-workouts-input" class="form-label">Số buổi đã tập</label>
+                            <input type="number" class="form-control" id="current-workouts-input" min="0" max="100">
+                        </div>
+                        <div class="mb-3">
+                            <label for="target-workouts-input" class="form-label">Mục tiêu số buổi tập</label>
+                            <input type="number" class="form-control" id="target-workouts-input" min="1" max="100">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="save-workout-goal">Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Chatbot TuDongChat -->
+    <script src="https://app.tudongchat.com/js/chatbox.js"></script>
+    <script>
+        const tudong_chatbox = new TuDongChat('1ICbI-QN42_nETFL-xNzc');
+        tudong_chatbox.initial();
+    </script>
+
+    <!-- Load Scripts in correct order -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Initialize features -->
+    <script>
+        // Error handling function
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Loading indicator functions
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+        
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+        
+        // Check if required files exist
+        function checkRequiredFiles() {
+            const img = new Image();
+            img.onload = function() {
+                console.log('Logo loaded successfully');
+            };
+            img.onerror = function() {
+                showError('Không tìm thấy file logo.png trong thư mục images');
+            };
+            img.src = 'images/logo.png';
+        }
+        
+        // Initialize all components
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                showLoading();
+                
+                // Initialize AOS
+                AOS.init({
+                    duration: 800,
+                    once: true
+                });
+                
+                // Check required files
+                checkRequiredFiles();
+                
+                // Khởi tạo đồng hồ
+                function updateMainClock() {
+                    const now = new Date();
+                    const hours = String(now.getHours()).padStart(2, '0');
+                    const minutes = String(now.getMinutes()).padStart(2, '0');
+                    const seconds = String(now.getSeconds()).padStart(2, '0');
+                    
+                    document.getElementById('hours').textContent = hours;
+                    document.getElementById('minutes').textContent = minutes;
+                    document.getElementById('seconds').textContent = seconds;
+                    
+                    // Update the standalone clock as well
+                    if (document.getElementById('clock')) {
+                        document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+                    }
+                }
+
+                // Cập nhật đồng hồ mỗi giây
+                setInterval(updateMainClock, 1000);
+                // Cập nhật ngay lập tức khi trang tải xong
+                updateMainClock();
+                
+                // Initialize water tracker
+                initWaterTracker();
+                
+                // Initialize language selector
+                initLanguageSelector();
+                
+                // Initialize goal tracking
+                initGoalTracking();
+                
+                hideLoading();
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showError('Có lỗi khi khởi tạo ứng dụng. Vui lòng tải lại trang.');
+                hideLoading();
+            }
+        });
+        
+        // Initialize language selector functionality
+        function initLanguageSelector() {
+            const langButtons = document.querySelectorAll('.lang-btn');
+            console.log('Language buttons found:', langButtons.length);
+            
+            if (langButtons.length === 0) {
+                console.error('No language buttons found. Check your HTML structure.');
+                return;
+            }
+            
+            // Test click - Add directly without addEventListener
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.preventDefault();
+                    const lang = this.getAttribute('data-lang');
+                    console.log('Direct click handler triggered for:', lang);
+                    
+                    // Update visual state
+                    document.querySelectorAll('.lang-btn').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Save preference
+                    localStorage.setItem('gymBroLanguage', lang);
+                    
+                    // Apply translations
+                    try {
+                        applyTranslations(lang);
+                        
+                        // Show notification
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: lang === 'en' ? 'Language changed to English' : 'Đã chuyển sang Tiếng Việt',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            toast: true
+                        });
+                    } catch (error) {
+                        console.error('Error applying translations:', error);
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Error changing language',
+                            text: error.message,
+                            showConfirmButton: true,
+                            toast: true
+                        });
+                    }
+                    
+                    return false;
+                };
+            });
+            
+            // Set initial language from localStorage or default to 'en'
+            const savedLang = localStorage.getItem('gymBroLanguage') || 'en';
+            console.log('Initial language:', savedLang);
+            
+            // Apply initial language
+            try {
+                applyTranslations(savedLang);
+                // Update active button
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    if (btn.getAttribute('data-lang') === savedLang) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            } catch (error) {
+                console.error('Error applying initial translations:', error);
+            }
+        }
+        
+        // Apply translations based on selected language
+        function applyTranslations(lang) {
+            const translations = {
+                en: {
+                    home: "Home",
+                    workouts: "Workouts",
+                    nutrition: "Nutrition",
+                    community: "Community",
+                    settings: "Settings",
+                    profile: "Profile",
+                    logout: "Logout",
+                    welcome: "Welcome to Gym Bro",
+                    companion: "Your ultimate fitness companion",
+                    startWorkout: "Start Workout",
+                    todaysTips: "Today's Tips",
+                    hours: "Hours",
+                    minutes: "Minutes",
+                    seconds: "Seconds",
+                    dailyTips: "Daily Fitness Tips",
+                    personalGoals: "Personal Goals",
+                    weight: "Weight",
+                    current: "Current",
+                    target: "Target",
+                    update: "Update",
+                    syncDevice: "Sync from device",
+                    workoutSessions: "Workout Sessions",
+                    remaining: "remaining to reach goal",
+                    water: "Water",
+                    drank: "Drank",
+                    reset: "Reset",
+                    sync: "Sync",
+                    workoutCalendar: "Workout Calendar",
+                    quickStats: "Quick Stats",
+                    caloriesBurned: "Calories Burned",
+                    workoutTime: "Workout Time",
+                    achievements: "Achievements",
+                    currentStreak: "Current Streak",
+                    quickLinks: "Quick Links",
+                    contactUs: "Contact Us"
+                },
+                vi: {
+                    home: "Trang chủ",
+                    workouts: "Bài tập",
+                    nutrition: "Dinh dưỡng",
+                    community: "Cộng đồng",
+                    settings: "Cài đặt",
+                    profile: "Hồ sơ",
+                    logout: "Đăng xuất",
+                    welcome: "Chào mừng đến Gym Bro",
+                    companion: "Người bạn tập luyện của bạn",
+                    startWorkout: "Bắt đầu tập",
+                    todaysTips: "Mẹo hôm nay",
+                    hours: "Giờ",
+                    minutes: "Phút",
+                    seconds: "Giây",
+                    dailyTips: "Mẹo tập luyện hàng ngày",
+                    personalGoals: "Mục tiêu cá nhân",
+                    weight: "Cân nặng",
+                    current: "Hiện tại",
+                    target: "Mục tiêu",
+                    update: "Cập nhật",
+                    syncDevice: "Đồng bộ từ thiết bị",
+                    workoutSessions: "Buổi tập",
+                    remaining: "còn lại để đạt mục tiêu",
+                    water: "Nước",
+                    drank: "Đã uống",
+                    reset: "Đặt lại",
+                    sync: "Đồng bộ",
+                    workoutCalendar: "Lịch tập luyện",
+                    quickStats: "Thống kê nhanh",
+                    caloriesBurned: "Calo đã đốt",
+                    workoutTime: "Thời gian tập",
+                    achievements: "Thành tích",
+                    currentStreak: "Chuỗi ngày hiện tại",
+                    quickLinks: "Liên kết nhanh",
+                    contactUs: "Liên hệ"
+                }
+            };
+            
+            // Get the translation for this language
+            const t = translations[lang] || translations.en;
+            
+            try {
+                // Helper function to safely update text content
+                function updateTextSafely(selector, text) {
+                    try {
+                        const element = document.querySelector(selector);
+                        if (element) {
+                            element.textContent = text;
+                        }
+                    } catch (err) {
+                        console.warn(`Failed to update ${selector}:`, err);
+                    }
+                }
+                
+                // Only update elements that we can confirm exist
+                // Navigation
+                const navHome = document.querySelector('.nav-link[href="home.html"] i + span');
+                if (navHome) navHome.textContent = ` ${t.home}`;
+                
+                const navWorkouts = document.querySelector('.nav-link[href="workouts.html"] i + span');
+                if (navWorkouts) navWorkouts.textContent = ` ${t.workouts}`;
+                
+                const navNutrition = document.querySelector('.nav-link[href="nutrition.html"] i + span');
+                if (navNutrition) navNutrition.textContent = ` ${t.nutrition}`;
+                
+                const navCommunity = document.querySelector('.nav-link[href="community.html"] i + span');
+                if (navCommunity) navCommunity.textContent = ` ${t.community}`;
+                
+                // Settings menu
+                const settingsLink = document.querySelector('a[href="settings.html"] i + span');
+                if (settingsLink) settingsLink.textContent = ` ${t.settings}`;
+                
+                const profileLink = document.querySelector('a[href="profile.html"] i + span');
+                if (profileLink) profileLink.textContent = ` ${t.profile}`;
+                
+                const logoutLink = document.querySelector('#logout-link i + span');
+                if (logoutLink) logoutLink.textContent = ` ${t.logout}`;
+                
+                // Hero section
+                const heroTitle = document.querySelector('.hero-content h1');
+                if (heroTitle) heroTitle.textContent = t.welcome;
+                
+                const heroSubtitle = document.querySelector('.hero-content p');
+                if (heroSubtitle) heroSubtitle.textContent = t.companion;
+                
+                const startBtn = document.querySelector('.btn-start');
+                if (startBtn) startBtn.textContent = t.startWorkout;
+                
+                const tipsBtn = document.querySelector('.btn-tips');
+                if (tipsBtn) tipsBtn.textContent = t.todaysTips;
+                
+                // Time labels
+                const timeLabels = document.querySelectorAll('.time-label');
+                if (timeLabels && timeLabels.length >= 3) {
+                    timeLabels[0].textContent = t.hours;
+                    timeLabels[1].textContent = t.minutes;
+                    timeLabels[2].textContent = t.seconds;
+                }
+                
+                // Section titles
+                updateTextSafely('#daily-tips h2', t.dailyTips);
+                updateTextSafely('.goals-section h2', t.personalGoals);
+                updateTextSafely('.calendar-section h2', t.workoutCalendar);
+                updateTextSafely('.stats-section h2', t.quickStats);
+                
+                // Footer
+                updateTextSafely('footer h5:nth-of-type(1)', t.quickLinks);
+                updateTextSafely('footer h5:nth-of-type(2)', t.contactUs);
+                
+                console.log('Translation applied successfully to language:', lang);
+                return true;
+            } catch (error) {
+                console.error('Error in applyTranslations:', error);
+                throw new Error(`Translation error: ${error.message}`);
+            }
+        }
+        
+        // Initialize water tracker functionality
+        function initWaterTracker() {
+            // Get water tracker elements
+            const currentWaterEl = document.getElementById('current-water');
+            const targetWaterEl = document.getElementById('target-water');
+            const waterRemainingEl = document.getElementById('water-remaining');
+            const waterProgressEl = document.getElementById('water-progress');
+            const addWaterBtn = document.getElementById('add-water');
+            const resetWaterBtn = document.getElementById('reset-water');
+            const syncWaterBtn = document.getElementById('sync-water');
+            
+            // Set default values
+            let currentWaterAmount = 1.5;
+            const goalAmount = 2.5;
+            
+            // Load water data from localStorage if available
+            loadWaterData();
+            
+            // Update display
+            updateWaterDisplay();
+            
+            // Add water button click event
+            if (addWaterBtn) {
+                addWaterBtn.addEventListener('click', function() {
+                    // Add 250ml (0.25L) to current amount
+                    addWater(0.25);
+                });
+            }
+            
+            // Reset water button click event
+            if (resetWaterBtn) {
+                resetWaterBtn.addEventListener('click', function() {
+                    resetWater();
+                });
+            }
+            
+            // Sync water button click event
+            if (syncWaterBtn) {
+                syncWaterBtn.addEventListener('click', function() {
+                    // Reload data from localStorage
+                    loadWaterData();
+                    updateWaterDisplay();
+                    
+                    // Show sync message
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Đã đồng bộ dữ liệu nước',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        toast: true
+                    });
+                });
+            }
+            
+            // Function to load water data from localStorage
+            function loadWaterData() {
+                const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+                const savedData = localStorage.getItem('gymBroWaterData');
+                
+                if (savedData) {
+                    try {
+                        const waterData = JSON.parse(savedData);
+                        
+                        // Check if the data is from today
+                        if (waterData.date === today) {
+                            currentWaterAmount = waterData.amount;
+                            console.log('Loaded water data:', currentWaterAmount, 'L');
+                        }
+                    } catch (error) {
+                        console.error('Error loading water data:', error);
+                    }
+                }
+            }
+            
+            // Function to save water data to localStorage
+            function saveWaterData() {
+                const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+                
+                const waterData = {
+                    amount: currentWaterAmount,
+                    goal: goalAmount,
+                    date: today,
+                    lastUpdated: new Date().toISOString()
+                };
+                
+                localStorage.setItem('gymBroWaterData', JSON.stringify(waterData));
+                console.log('Water data saved:', waterData);
+            }
+            
+            // Function to add water
+            function addWater(amount) {
+                currentWaterAmount = Math.min(goalAmount, currentWaterAmount + amount);
+                updateWaterDisplay();
+                saveWaterData();
+                
+                // Show success message
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: `Đã thêm ${amount * 1000}ml nước!`,
+                    showConfirmButton: false,
+                    timer: 1500,
+                    toast: true
+                });
+            }
+            
+            // Function to update water display
+            function updateWaterDisplay() {
+                if (currentWaterEl) currentWaterEl.textContent = currentWaterAmount.toFixed(1);
+                if (targetWaterEl) targetWaterEl.textContent = goalAmount.toFixed(1);
+                
+                const remaining = Math.max(0, goalAmount - currentWaterAmount).toFixed(1);
+                if (waterRemainingEl) waterRemainingEl.textContent = remaining;
+                
+                const percentage = Math.min(100, Math.round((currentWaterAmount / goalAmount) * 100));
+                if (waterProgressEl) {
+                    waterProgressEl.style.width = `${percentage}%`;
+                    waterProgressEl.setAttribute('aria-valuenow', percentage);
+                }
+            }
+            
+            // Function to reset water
+            function resetWater() {
+                currentWaterAmount = 0;
+                updateWaterDisplay();
+                saveWaterData();
+                
+                // Show notification
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'info',
+                    title: 'Đã đặt lại lượng nước về 0',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    toast: true
+                });
+            }
+        }
+        
+        // Initialize goal tracking functionality
+        function initGoalTracking() {
+            console.log('Initializing goal tracking...');
+            
+            // Set starting weight if not already set
+            const currentWeightElement = document.getElementById('current-weight');
+            if (currentWeightElement && !localStorage.getItem('startingWeight')) {
+                localStorage.setItem('startingWeight', currentWeightElement.textContent);
+                console.log('Set initial starting weight:', currentWeightElement.textContent);
+            }
+            
+            // Load saved goals data
+            loadGoalsData();
+            
+            // Set up weight goal modal
+            const weightGoalForm = document.getElementById('weight-goal-form');
+            const currentWeightInput = document.getElementById('current-weight-input');
+            const targetWeightInput = document.getElementById('target-weight-input');
+            const saveWeightGoalBtn = document.getElementById('save-weight-goal');
+            
+            // Pre-fill form with current values when modal is opened
+            $('#weightGoalModal').on('show.bs.modal', function (e) {
+                console.log('Weight goal modal opened');
+                const currentWeight = document.getElementById('current-weight');
+                const targetWeight = document.getElementById('target-weight');
+                
+                if (currentWeight && targetWeight && currentWeightInput && targetWeightInput) {
+                    currentWeightInput.value = currentWeight.textContent;
+                    targetWeightInput.value = targetWeight.textContent;
+                }
+            });
+            
+            if (saveWeightGoalBtn) {
+                saveWeightGoalBtn.addEventListener('click', function() {
+                    if (currentWeightInput && targetWeightInput) {
+                        const currentWeight = parseFloat(currentWeightInput.value);
+                        const targetWeight = parseFloat(targetWeightInput.value);
+                        
+                        if (!isNaN(currentWeight) && !isNaN(targetWeight)) {
+                            console.log('Saving weight goal:', currentWeight, targetWeight);
+                            
+                            // Update display
+                            updateWeightGoalDisplay(currentWeight, targetWeight);
+                            
+                            // Save data
+                            saveGoalsData();
+                            
+                            // Force UI update
+                            setTimeout(() => {
+                                const progressElement = document.getElementById('weight-progress');
+                                if (progressElement) {
+                                    console.log('Current progress bar width:', progressElement.style.width);
+                                }
+                            }, 100);
+                            
+                            // Close modal
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('weightGoalModal'));
+                            if (modal) modal.hide();
+                            
+                            // Show success message
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Đã cập nhật mục tiêu cân nặng',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                toast: true
+                            });
+                        }
+                    }
+                });
+            }
+            
+            // Set up workout goal modal
+            const workoutGoalForm = document.getElementById('workout-goal-form');
+            const currentWorkoutsInput = document.getElementById('current-workouts-input');
+            const targetWorkoutsInput = document.getElementById('target-workouts-input');
+            const saveWorkoutGoalBtn = document.getElementById('save-workout-goal');
+            
+            // Pre-fill form with current values when modal is opened
+            $('#workoutGoalModal').on('show.bs.modal', function (e) {
+                console.log('Workout goal modal opened');
+                const currentWorkouts = document.getElementById('current-workouts');
+                const targetWorkouts = document.getElementById('target-workouts');
+                
+                if (currentWorkouts && targetWorkouts && currentWorkoutsInput && targetWorkoutsInput) {
+                    currentWorkoutsInput.value = currentWorkouts.textContent;
+                    targetWorkoutsInput.value = targetWorkouts.textContent;
+                }
+            });
+            
+            if (saveWorkoutGoalBtn) {
+                saveWorkoutGoalBtn.addEventListener('click', function() {
+                    if (currentWorkoutsInput && targetWorkoutsInput) {
+                        const currentWorkouts = parseInt(currentWorkoutsInput.value);
+                        const targetWorkouts = parseInt(targetWorkoutsInput.value);
+                        
+                        if (!isNaN(currentWorkouts) && !isNaN(targetWorkouts)) {
+                            console.log('Saving workout goal:', currentWorkouts, targetWorkouts);
+                            
+                            // Update display
+                            updateWorkoutGoalDisplay(currentWorkouts, targetWorkouts);
+                            
+                            // Save data
+                            saveGoalsData();
+                            
+                            // Force UI update
+                            setTimeout(() => {
+                                const progressElement = document.getElementById('workout-progress');
+                                if (progressElement) {
+                                    console.log('Current progress bar width:', progressElement.style.width);
+                                }
+                            }, 100);
+                            
+                            // Close modal
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('workoutGoalModal'));
+                            if (modal) modal.hide();
+                            
+                            // Show success message
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Đã cập nhật mục tiêu buổi tập',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                toast: true
+                            });
+                        }
+                    }
+                });
+            }
+            
+            // Add click event to add-water button
+            const addWaterBtn = document.getElementById('add-water');
+            if (addWaterBtn) {
+                addWaterBtn.addEventListener('click', function() {
+                    addWater(0.25);
+                });
+            }
+            
+            // Add click event to reset-water button
+            const resetWaterBtn = document.getElementById('reset-water');
+            if (resetWaterBtn) {
+                resetWaterBtn.addEventListener('click', function() {
+                    resetWater();
+                });
+            }
+        }
+        
+        // Update weight goal display
+        function updateWeightGoalDisplay(currentWeight, targetWeight) {
+            console.log('Updating weight display:', currentWeight, targetWeight);
+            
+            const currentWeightElement = document.getElementById('current-weight');
+            const targetWeightElement = document.getElementById('target-weight');
+            const weightRemainingElement = document.getElementById('weight-remaining');
+            const weightProgressElement = document.getElementById('weight-progress');
+            
+            if (!currentWeightElement || !targetWeightElement || !weightRemainingElement || !weightProgressElement) {
+                console.error('Weight elements not found!');
+                return;
+            }
+            
+            // Update text displays
+            currentWeightElement.textContent = currentWeight;
+            targetWeightElement.textContent = targetWeight;
+            
+            // Calculate weight remaining
+            const weightDiff = Math.abs(currentWeight - targetWeight);
+            
+            // Update remaining text with direction (weight loss/gain)
+            if (currentWeight > targetWeight) {
+                weightRemainingElement.closest('p').innerHTML = `Cần giảm <strong id="weight-remaining">${weightDiff}</strong> kg để đạt mục tiêu`;
+            } else if (currentWeight < targetWeight) {
+                weightRemainingElement.closest('p').innerHTML = `Cần tăng <strong id="weight-remaining">${weightDiff}</strong> kg để đạt mục tiêu`;
+            } else {
+                weightRemainingElement.closest('p').innerHTML = `<strong class="text-success">Đã đạt mục tiêu!</strong>`;
+            }
+            
+            // Calculate progress percentage
+            let progressPercentage = 0;
+            const startingWeight = parseFloat(localStorage.getItem('startingWeight')) || currentWeight;
+            console.log('Starting weight:', startingWeight);
+            
+            if (currentWeight === targetWeight) {
+                // Goal achieved
+                progressPercentage = 100;
+            } else if (startingWeight > targetWeight) {
+                // Weight loss goal
+                const totalToLose = startingWeight - targetWeight;
+                const currentLoss = startingWeight - currentWeight;
+                
+                if (totalToLose > 0) {
+                    progressPercentage = Math.min(100, Math.max(0, Math.round((currentLoss / totalToLose) * 100)));
+                }
+                
+                // Update progress bar color for weight loss
+                weightProgressElement.classList.remove('bg-warning', 'bg-danger');
+                weightProgressElement.classList.add('bg-success');
+            } else {
+                // Weight gain goal
+                const totalToGain = targetWeight - startingWeight;
+                const currentGain = currentWeight - startingWeight;
+                
+                if (totalToGain > 0) {
+                    progressPercentage = Math.min(100, Math.max(0, Math.round((currentGain / totalToGain) * 100)));
+                }
+                
+                // Update progress bar color for weight gain
+                weightProgressElement.classList.remove('bg-success', 'bg-danger');
+                weightProgressElement.classList.add('bg-warning');
+            }
+            
+            // Update progress bar
+            weightProgressElement.style.width = `${progressPercentage}%`;
+            weightProgressElement.setAttribute('aria-valuenow', progressPercentage);
+            
+            console.log('Weight progress updated:', {
+                startingWeight,
+                current: currentWeight,
+                target: targetWeight,
+                difference: weightDiff,
+                percentage: progressPercentage,
+                barWidth: weightProgressElement.style.width
+            });
+        }
+        
+        // Update workout goal display
+        function updateWorkoutGoalDisplay(currentWorkouts, targetWorkouts) {
+            console.log('Updating workout display:', currentWorkouts, targetWorkouts);
+            
+            const currentWorkoutsElement = document.getElementById('current-workouts');
+            const targetWorkoutsElement = document.getElementById('target-workouts');
+            const workoutsRemainingElement = document.getElementById('workouts-remaining');
+            const workoutProgressElement = document.getElementById('workout-progress');
+            
+            if (!currentWorkoutsElement || !targetWorkoutsElement || !workoutsRemainingElement || !workoutProgressElement) {
+                console.error('Workout elements not found!', {
+                    currentWorkoutsElement, 
+                    targetWorkoutsElement, 
+                    workoutsRemainingElement, 
+                    workoutProgressElement
+                });
+                return;
+            }
+            
+            currentWorkoutsElement.textContent = currentWorkouts;
+            targetWorkoutsElement.textContent = targetWorkouts;
+            
+            const workoutsRemaining = Math.max(0, targetWorkouts - currentWorkouts);
+            workoutsRemainingElement.textContent = workoutsRemaining;
+            
+            // Calculate progress percentage - what percentage of target has been completed
+            let progressPercentage = 0;
+            if (targetWorkouts > 0) {
+                progressPercentage = Math.min(100, Math.round((currentWorkouts / targetWorkouts) * 100));
+            }
+            
+            // Update progress bar
+            workoutProgressElement.style.width = `${progressPercentage}%`;
+            workoutProgressElement.setAttribute('aria-valuenow', progressPercentage);
+            
+            // Log progress for debugging
+            console.log('Workout progress updated:', {
+                current: currentWorkouts,
+                target: targetWorkouts,
+                remaining: workoutsRemaining,
+                percentage: progressPercentage,
+                barWidth: workoutProgressElement.style.width
+            });
+        }
+        
+        // Add water
+        function addWater(amount) {
+            const currentWaterElement = document.getElementById('current-water');
+            const targetWaterElement = document.getElementById('target-water');
+            const waterRemainingElement = document.getElementById('water-remaining');
+            const waterProgressElement = document.getElementById('water-progress');
+            
+            if (currentWaterElement && targetWaterElement) {
+                const currentWater = parseFloat(currentWaterElement.textContent);
+                const targetWater = parseFloat(targetWaterElement.textContent);
+                
+                if (!isNaN(currentWater) && !isNaN(targetWater)) {
+                    // Add water
+                    const newCurrentWater = Math.min(targetWater, currentWater + amount);
+                    currentWaterElement.textContent = newCurrentWater.toFixed(1);
+                    
+                    // Update remaining
+                    const remaining = Math.max(0, targetWater - newCurrentWater);
+                    if (waterRemainingElement) waterRemainingElement.textContent = remaining.toFixed(1);
+                    
+                    // Update progress bar
+                    const progressPercentage = Math.round((newCurrentWater / targetWater) * 100);
+                    if (waterProgressElement) {
+                        waterProgressElement.style.width = `${progressPercentage}%`;
+                        waterProgressElement.setAttribute('aria-valuenow', progressPercentage);
+                    }
+                    
+                    // Save data
+                    saveGoalsData();
+                    
+                    // Show notification
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: `Đã thêm ${amount}L nước!`,
+                        showConfirmButton: false,
+                        timer: 1500,
+                        toast: true
+                    });
+                }
+            }
+        }
+        
+        // Reset water
+        function resetWater() {
+            const currentWaterElement = document.getElementById('current-water');
+            const waterRemainingElement = document.getElementById('water-remaining');
+            const targetWaterElement = document.getElementById('target-water');
+            const waterProgressElement = document.getElementById('water-progress');
+            
+            if (currentWaterElement && targetWaterElement) {
+                const targetWater = parseFloat(targetWaterElement.textContent);
+                
+                if (!isNaN(targetWater)) {
+                    // Reset water
+                    currentWaterElement.textContent = '0.0';
+                    
+                    // Update remaining
+                    if (waterRemainingElement) waterRemainingElement.textContent = targetWater.toFixed(1);
+                    
+                    // Update progress bar
+                    if (waterProgressElement) {
+                        waterProgressElement.style.width = '0%';
+                        waterProgressElement.setAttribute('aria-valuenow', 0);
+                    }
+                    
+                    // Save data
+                    saveGoalsData();
+                    
+                    // Show notification
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'info',
+                        title: 'Đã đặt lại lượng nước về 0',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        toast: true
+                    });
+                }
+            }
+        }
+        
+        // Save goals data to localStorage
+        function saveGoalsData() {
+            const currentWeightElement = document.getElementById('current-weight');
+            const targetWeightElement = document.getElementById('target-weight');
+            const currentWorkoutsElement = document.getElementById('current-workouts');
+            const targetWorkoutsElement = document.getElementById('target-workouts');
+            const currentWaterElement = document.getElementById('current-water');
+            const targetWaterElement = document.getElementById('target-water');
+            
+            const goalsData = {
+                weight: {
+                    current: currentWeightElement ? parseFloat(currentWeightElement.textContent) : 75,
+                    target: targetWeightElement ? parseFloat(targetWeightElement.textContent) : 70
+                },
+                workouts: {
+                    current: currentWorkoutsElement ? parseInt(currentWorkoutsElement.textContent) : 8,
+                    target: targetWorkoutsElement ? parseInt(targetWorkoutsElement.textContent) : 12
+                },
+                water: {
+                    current: currentWaterElement ? parseFloat(currentWaterElement.textContent) : 1.5,
+                    target: targetWaterElement ? parseFloat(targetWaterElement.textContent) : 2.5
+                },
+                lastUpdated: new Date().toISOString()
+            };
+            
+            // Store starting weight for progress calculation if not already set
+            if (!localStorage.getItem('startingWeight') && currentWeightElement) {
+                localStorage.setItem('startingWeight', currentWeightElement.textContent);
+            }
+            
+            localStorage.setItem('gymBroGoals', JSON.stringify(goalsData));
+            console.log('Goals data saved:', goalsData);
+        }
+        
+        // Load goals data from localStorage
+        function loadGoalsData() {
+            const savedData = localStorage.getItem('gymBroGoals');
+            
+            if (savedData) {
+                try {
+                    const goalsData = JSON.parse(savedData);
+                    
+                    // Update weight display
+                    if (goalsData.weight) {
+                        updateWeightGoalDisplay(goalsData.weight.current, goalsData.weight.target);
+                        
+                        // Update form inputs for next time
+                        const currentWeightInput = document.getElementById('current-weight-input');
+                        const targetWeightInput = document.getElementById('target-weight-input');
+                        
+                        if (currentWeightInput) currentWeightInput.value = goalsData.weight.current;
+                        if (targetWeightInput) targetWeightInput.value = goalsData.weight.target;
+                    }
+                    
+                    // Update workouts display
+                    if (goalsData.workouts) {
+                        updateWorkoutGoalDisplay(goalsData.workouts.current, goalsData.workouts.target);
+                        
+                        // Update form inputs for next time
+                        const currentWorkoutsInput = document.getElementById('current-workouts-input');
+                        const targetWorkoutsInput = document.getElementById('target-workouts-input');
+                        
+                        if (currentWorkoutsInput) currentWorkoutsInput.value = goalsData.workouts.current;
+                        if (targetWorkoutsInput) targetWorkoutsInput.value = goalsData.workouts.target;
+                    }
+                    
+                    // Update water display
+                    if (goalsData.water) {
+                        const currentWaterElement = document.getElementById('current-water');
+                        const targetWaterElement = document.getElementById('target-water');
+                        const waterRemainingElement = document.getElementById('water-remaining');
+                        const waterProgressElement = document.getElementById('water-progress');
+                        
+                        if (currentWaterElement) currentWaterElement.textContent = goalsData.water.current.toFixed(1);
+                        if (targetWaterElement) targetWaterElement.textContent = goalsData.water.target.toFixed(1);
+                        
+                        if (waterRemainingElement && targetWaterElement && currentWaterElement) {
+                            const remaining = Math.max(0, goalsData.water.target - goalsData.water.current);
+                            waterRemainingElement.textContent = remaining.toFixed(1);
+                        }
+                        
+                        if (waterProgressElement && targetWaterElement && currentWaterElement) {
+                            const progressPercentage = Math.round((goalsData.water.current / goalsData.water.target) * 100);
+                            waterProgressElement.style.width = `${progressPercentage}%`;
+                            waterProgressElement.setAttribute('aria-valuenow', progressPercentage);
+                        }
+                    }
+                    
+                    console.log('Goals data loaded successfully');
+                } catch (error) {
+                    console.error('Error loading goals data:', error);
+                }
+            }
+        }
+
+        // Update weight goal when form submitted
+        $('#weight-goal-form').on('submit', function(e) {
+            e.preventDefault();
+            console.log('Weight goal form submitted');
+            
+            const currentWeightInput = $('#current-weight-input').val();
+            const targetWeightInput = $('#target-weight-input').val();
+            
+            if (currentWeightInput && targetWeightInput) {
+                const currentWeight = parseFloat(currentWeightInput);
+                const targetWeight = parseFloat(targetWeightInput);
+                
+                // Store starting weight if not already set or if user has reset current weight
+                const existingStartingWeight = localStorage.getItem('startingWeight');
+                if (!existingStartingWeight || confirm('Cập nhật lại trọng lượng ban đầu? Điều này sẽ đặt lại tiến trình của bạn.')) {
+                    localStorage.setItem('startingWeight', currentWeight);
+                    console.log('Set new starting weight:', currentWeight);
+                }
+                
+                // Update UI
+                updateWeightGoalDisplay(currentWeight, targetWeight);
+                
+                // Save updated data
+                saveGoalsData();
+                
+                // Close modal
+                $('#weightGoalModal').modal('hide');
+            }
+        });
+
+        // Function to add a workout to history
+        function addWorkoutToHistory(date, description) {
+            const workoutHistory = JSON.parse(localStorage.getItem('workoutHistory')) || [];
+            workoutHistory.push({ date, description });
+            localStorage.setItem('workoutHistory', JSON.stringify(workoutHistory));
+            displayWorkoutHistory();
+        }
+
+        // Function to display workout history
+        function displayWorkoutHistory() {
+            const workoutHistoryList = document.getElementById('workout-history-list');
+            const workoutHistory = JSON.parse(localStorage.getItem('workoutHistory')) || [];
+            workoutHistoryList.innerHTML = '';
+            workoutHistory.forEach((workout, index) => {
+                const listItem = document.createElement('div');
+                listItem.className = 'list-group-item';
+                listItem.innerHTML = `<strong>${workout.date}</strong>: ${workout.description}`;
+                workoutHistoryList.appendChild(listItem);
+            });
+        }
+
+        // Initialize workout history on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            displayWorkoutHistory();
+        });
+
+        // Replace the save weight goal button click handler
+        $(document).ready(function() {
+            $('#save-weight-goal').off('click').on('click', function() {
+                // Get the weight values
+                const currentWeight = parseFloat($('#current-weight-input').val());
+                const targetWeight = parseFloat($('#target-weight-input').val());
+                
+                if (!isNaN(currentWeight) && !isNaN(targetWeight)) {
+                    console.log('Weight goal form submitted with values:', currentWeight, targetWeight);
+                    
+                    // Update the text displays
+                    $('#current-weight').text(currentWeight);
+                    $('#target-weight').text(targetWeight);
+                    
+                    // Set starting weight if needed
+                    if (!localStorage.getItem('startingWeight')) {
+                        localStorage.setItem('startingWeight', currentWeight);
+                    }
+                    
+                    // Get starting weight
+                    const startingWeight = parseFloat(localStorage.getItem('startingWeight')) || currentWeight;
+                    
+                    // Calculate progress
+                    let progressPercent = 0;
+                    
+                    if (currentWeight > targetWeight) {
+                        // WEIGHT LOSS GOAL
+                        const totalToLose = startingWeight - targetWeight;
+                        const alreadyLost = startingWeight - currentWeight;
+                        
+                        if (totalToLose > 0) {
+                            progressPercent = Math.min(100, Math.max(0, Math.round((alreadyLost / totalToLose) * 100)));
+                        }
+                        
+                        // Update remaining text
+                        const weightDiff = (currentWeight - targetWeight).toFixed(1);
+                        $('#weight-remaining').parent().html(`Cần giảm <strong id="weight-remaining">${weightDiff}</strong> kg để đạt mục tiêu`);
+                        
+                        // Update progress bar
+                        $('#weight-progress').removeClass('bg-warning bg-danger').addClass('bg-success');
+                        
+                    } else if (currentWeight < targetWeight) {
+                        // WEIGHT GAIN GOAL
+                        const totalToGain = targetWeight - startingWeight;
+                        const alreadyGained = currentWeight - startingWeight;
+                        
+                        if (totalToGain > 0) {
+                            progressPercent = Math.min(100, Math.max(0, Math.round((alreadyGained / totalToGain) * 100)));
+                        }
+                        
+                        // Update remaining text
+                        const weightDiff = (targetWeight - currentWeight).toFixed(1);
+                        $('#weight-remaining').parent().html(`Cần tăng <strong id="weight-remaining">${weightDiff}</strong> kg để đạt mục tiêu`);
+                        
+                        // Update progress bar
+                        $('#weight-progress').removeClass('bg-success bg-danger').addClass('bg-warning');
+                        
+                    } else {
+                        // GOAL ACHIEVED
+                        $('#weight-remaining').parent().html(`<strong class="text-success">Đã đạt mục tiêu!</strong>`);
+                        progressPercent = 100;
+                        $('#weight-progress').removeClass('bg-warning bg-danger').addClass('bg-success');
+                    }
+                    
+                    // Update progress bar (using jQuery to force style update)
+                    console.log(`Setting progress bar to ${progressPercent}%`);
+                    $('#weight-progress').css('width', progressPercent + '%').attr('aria-valuenow', progressPercent);
+                    
+                    // Save data to localStorage
+                    localStorage.setItem('gymBroGoals', JSON.stringify({
+                        weight: {
+                            current: currentWeight,
+                            target: targetWeight
+                        },
+                        lastUpdated: new Date().toISOString()
+                    }));
+                    
+                    // Close modal
+                    $('#weightGoalModal').modal('hide');
+                    
+                    // Show success message
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Đã cập nhật mục tiêu cân nặng',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        toast: true
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <!-- Add this script right before the closing body tag -->
+    <script>
+        // Direct fix for weight progress bar
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, applying weight progress fix');
+            
+            // Get save button
+            var saveButton = document.getElementById('save-weight-goal');
+            if (saveButton) {
+                console.log('Found save button, attaching event listener');
+                
+                // Remove any existing event listeners
+                var newSaveButton = saveButton.cloneNode(true);
+                saveButton.parentNode.replaceChild(newSaveButton, saveButton);
+                saveButton = newSaveButton;
+                
+                // Add our direct event listener
+                saveButton.addEventListener('click', function(e) {
+                    console.log('Save button clicked');
+                    
+                    // Get input values
+                    var currentWeightInput = document.getElementById('current-weight-input');
+                    var targetWeightInput = document.getElementById('target-weight-input');
+                    
+                    if (!currentWeightInput || !targetWeightInput) {
+                        console.error('Weight input elements not found');
+                        return;
+                    }
+                    
+                    var currentWeight = parseFloat(currentWeightInput.value);
+                    var targetWeight = parseFloat(targetWeightInput.value);
+                    
+                    if (isNaN(currentWeight) || isNaN(targetWeight)) {
+                        console.error('Invalid weight values');
+                        return;
+                    }
+                    
+                    console.log('Current weight:', currentWeight, 'Target weight:', targetWeight);
+                    
+                    // Update display text
+                    var currentWeightElement = document.getElementById('current-weight');
+                    var targetWeightElement = document.getElementById('target-weight');
+                    var weightRemainingElement = document.getElementById('weight-remaining');
+                    var progressBar = document.getElementById('weight-progress');
+                    
+                    if (!currentWeightElement || !targetWeightElement || !weightRemainingElement || !progressBar) {
+                        console.error('Required elements not found');
+                        console.log('currentWeightElement:', currentWeightElement);
+                        console.log('targetWeightElement:', targetWeightElement);
+                        console.log('weightRemainingElement:', weightRemainingElement);
+                        console.log('progressBar:', progressBar);
+                        return;
+                    }
+                    
+                    // Update display values
+                    currentWeightElement.textContent = currentWeight;
+                    targetWeightElement.textContent = targetWeight;
+                    
+                    // Calculate remaining weight
+                    var diff = Math.abs(currentWeight - targetWeight).toFixed(1);
+                    
+                    // Calculate progress
+                    var progressPercent = 0;
+                    var startingWeight = localStorage.getItem('startingWeight');
+                    if (!startingWeight) {
+                        startingWeight = currentWeight;
+                        localStorage.setItem('startingWeight', currentWeight);
+                    } else {
+                        startingWeight = parseFloat(startingWeight);
+                    }
+                    
+                    // Update text and progress bar
+                    if (currentWeight > targetWeight) {
+                        // Weight loss goal
+                        var remainingText = 'Cần giảm <strong id="weight-remaining">' + diff + '</strong> kg để đạt mục tiêu';
+                        
+                        var totalToLose = startingWeight - targetWeight;
+                        var alreadyLost = startingWeight - currentWeight;
+                        if (totalToLose > 0) {
+                            progressPercent = Math.min(100, Math.round((alreadyLost / totalToLose) * 100));
+                        }
+                        
+                        // Green for weight loss
+                        progressBar.className = 'progress-bar progress-bar-striped progress-bar-animated bg-success';
+                        weightRemainingElement.parentElement.innerHTML = remainingText;
+                        
+                    } else if (currentWeight < targetWeight) {
+                        // Weight gain goal
+                        var remainingText = 'Cần tăng <strong id="weight-remaining">' + diff + '</strong> kg để đạt mục tiêu';
+                        
+                        var totalToGain = targetWeight - startingWeight;
+                        var alreadyGained = currentWeight - startingWeight;
+                        if (totalToGain > 0) {
+                            progressPercent = Math.min(100, Math.round((alreadyGained / totalToGain) * 100));
+                        }
+                        
+                        // Yellow for weight gain
+                        progressBar.className = 'progress-bar progress-bar-striped progress-bar-animated bg-warning';
+                        weightRemainingElement.parentElement.innerHTML = remainingText;
+                        
+                    } else {
+                        // Goal achieved
+                        weightRemainingElement.parentElement.innerHTML = '<strong class="text-success">Đã đạt mục tiêu!</strong>';
+                        progressPercent = 100;
+                        progressBar.className = 'progress-bar progress-bar-striped progress-bar-animated bg-success';
+                    }
+                    
+                    // DIRECTLY update progress bar width
+                    progressBar.style.width = progressPercent + '%';
+                    console.log('Updated progress bar width to ' + progressPercent + '%');
+                    
+                    // Save data
+                    var goalsData = {
+                        weight: {
+                            current: currentWeight,
+                            target: targetWeight
+                        },
+                        lastUpdated: new Date().toISOString()
+                    };
+                    localStorage.setItem('gymBroGoals', JSON.stringify(goalsData));
+                    
+                    // Close modal (try both methods)
+                    try {
+                        $('#weightGoalModal').modal('hide');
+                    } catch(e) {
+                        var modal = document.getElementById('weightGoalModal');
+                        if (modal) {
+                            var modalInstance = bootstrap.Modal.getInstance(modal);
+                            if (modalInstance) modalInstance.hide();
+                        }
+                    }
+                });
+            } else {
+                console.error('Save weight goal button not found!');
+            }
+        });
+    </script>
+
+    <!-- Your custom JavaScript -->
+    <script src="integrated_home.js"></script>
+</body>
+</html>
