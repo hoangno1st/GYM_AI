@@ -1,97 +1,147 @@
-# Gym Bro - Ứng dụng Thể hình
+# GYM AI - Smart Fitness Application
 
-Gym Bro là ứng dụng theo dõi thể hình và kết nối cộng đồng giúp người dùng quản lý các bài tập, dinh dưỡng và kết nối với những người khác.
+<p align="center">
+  <img src="images/logo.png" alt="GYM AI Logo" width="200">
+</p>
 
-## Tính năng
+GYM AI is a comprehensive fitness tracking and community connection application that helps users manage workouts, nutrition, and connect with other fitness enthusiasts. Powered by AI technology, it provides personalized recommendations based on your fitness goals and performance.
 
-- Xác thực người dùng và quản lý hồ sơ
-- Theo dõi và lập kế hoạch tập luyện
-- Ghi nhận và phân tích dinh dưỡng
-- Hiển thị tiến độ bằng biểu đồ
-- Tích hợp cộng đồng
+## ✨ Features
 
-## Các Framework và Công cụ
+- **User Authentication & Profile Management**
 
-Ứng dụng này sử dụng nhiều framework và công cụ hiện đại:
+  - Create and manage your fitness profile
+  - Track your progress over time
+  - Set personal goals and objectives
+
+- **Workout Tracking & Planning**
+
+  - Create custom workout routines
+  - Log your exercises, sets, and repetitions
+  - Get AI-powered workout suggestions
+
+- **Nutrition Analytics**
+
+  - Log food intake and analyze nutrients
+  - Track calories and macronutrients
+  - Get diet recommendations based on your goals
+
+- **Progress Visualization**
+
+  - Beautiful charts and graphs to visualize progress
+  - Milestone tracking and achievements
+  - Data-driven insights into your fitness journey
+
+- **Community Integration**
+  - Connect with other fitness enthusiasts
+  - Share your achievements and routines
+  - Get motivation from the community
+
+## 🛠️ Technologies Used
 
 ### Frontend Frameworks
 
-- **Bootstrap 5** - Giao diện responsive và hệ thống grid
-- **AOS (Animate On Scroll)** - Hiệu ứng animation khi cuộn trang
-- **Chart.js** - Hiển thị biểu đồ dữ liệu theo dõi tiến độ
-- **Font Awesome** - Thư viện icon phong phú
-- **SweetAlert2** - Thay thế alert JavaScript với giao diện đẹp mắt
+- **Bootstrap 5** - Responsive interface and grid system
+- **AOS (Animate On Scroll)** - Scroll animation effects
+- **Chart.js** - Data visualization for progress tracking
+- **Font Awesome** - Rich icon library
+- **SweetAlert2** - Beautiful JavaScript alerts
 
-### Công cụ phát triển
+### Development Tools
 
-- **Vite** - Server phát triển nhanh và tối ưu build
-- **NPM** - Quản lý thư viện
-- **Lite Server** - Server nhẹ cho phát triển
+- **Vite** - Fast development server and optimized builds
+- **NPM** - Package management
+- **Lite Server** - Lightweight server for development
 
-## Bắt đầu sử dụng
+## 🚀 Getting Started
 
-### Cài đặt
+### Prerequisites
 
-1. Cài đặt Node.js (nếu chưa có): [Tải Node.js](https://nodejs.org/)
-2. Mở terminal/command prompt và di chuyển đến thư mục dự án
-3. Chạy lệnh cài đặt:
+- Node.js (v14.0 or higher)
+- NPM (v6.0 or higher)
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/hoangno1st/GYM_AI.git
+cd GYM_AI
+```
+
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-4. Chạy lệnh thiết lập:
+3. Run setup:
 
 ```bash
 npm run setup
 ```
 
-### Chạy ứng dụng
+### Running the Application
 
-Chạy ứng dụng trong môi trường phát triển:
+Development mode:
 
 ```bash
 npm run dev
 ```
 
-Hoặc sử dụng lite-server:
+Or using lite-server:
 
 ```bash
 npm start
 ```
 
-### Build cho production
+### Building for Production
 
-Để tạo phiên bản production:
+To create a production build:
 
 ```bash
 npm run build
 ```
 
-Output sẽ được lưu trong thư mục `dist`.
+The output will be stored in the `dist` directory.
 
-## Giải quyết lỗi thường gặp
+## 🔍 Project Structure
 
-1. **Lỗi "không chạy được"**:
-   - Kiểm tra Node.js đã cài đặt chưa: `node -v`
-   - Đảm bảo đã chạy `npm install` để cài đặt các thư viện
-   - Nếu gặp lỗi với Vite, thử dùng `npm start` để chạy lite-server
+- `index.html` - Login/Registration page
+- `home.html` - Main dashboard
+- `workouts.html` - Workout tracking
+- `nutrition.html` - Nutrition tracking
+- `profile.html` - User profile
+- `settings.html` - Settings
+- `*.js` - JavaScript files for each page
+- `*.css` - CSS files for each page
 
-2. **Không hiện logo**:
-   - Đảm bảo file logo.png có trong thư mục images
-   - Nếu không có, tạo hoặc thêm một hình ảnh logo vào thư mục
+## 🛟 Troubleshooting
 
-3. **Animation không hoạt động**:
-   - Kiểm tra console để tìm lỗi
-   - Đảm bảo AOS đã được khởi tạo trong file JS
+1. **"Cannot run" error**:
 
-## Cấu trúc dự án
+   - Check if Node.js is installed: `node -v`
+   - Make sure you've run `npm install` to install libraries
+   - If encountering issues with Vite, try `npm start` to run lite-server
 
-- `index.html` - Trang đăng nhập/đăng ký
-- `home.html` - Trang chính
-- `workouts.html` - Theo dõi bài tập
-- `nutrition.html` - Theo dõi dinh dưỡng
-- `profile.html` - Hồ sơ người dùng
-- `settings.html` - Cài đặt
-- `*.js` - Các file JavaScript cho từng trang
-- `*.css` - Các file CSS cho từng trang 
+2. **Logo not displaying**:
+
+   - Ensure logo.png is in the images directory
+   - If missing, add a logo image to the directory
+
+3. **Animations not working**:
+   - Check console for errors
+   - Ensure AOS is initialized in the JS file
+
+## 👥 Contributors
+
+- [Hoang No 1st](https://github.com/hoangno1st)
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgements
+
+- Thanks to all the open-source libraries that made this project possible
+- Special thanks to our mentors and advisors for their guidance
