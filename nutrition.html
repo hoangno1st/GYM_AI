@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Bro - Nutrition</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS animation library -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="nutrition.css">
+
+    <style>
+        :root {
+            --primary-color: #ff4b2b;
+            --secondary-color: #ff416c;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            background-color: #f8f9fa;
+        }
+        
+        /* Language Selector */
+        .language-selector {
+            display: flex;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .lang-btn {
+            padding: 5px 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 40px;
+        }
+        
+        .lang-btn.active {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .lang-btn:not(.active) {
+            background-color: transparent;
+        }
+        
+        .lang-btn:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Navbar styles */
+        .navbar {
+            padding: 0.8rem 0;
+        }
+        
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand img {
+            width: 45px;
+            height: 45px;
+        }
+        
+        .navbar .container {
+            max-width: 1200px;
+        }
+        
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-item {
+            margin: 0 10px;
+        }
+        
+        .nav-link {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.8rem;
+        }
+        
+        .nav-link i {
+            margin-right: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .dropdown {
+            margin-left: 15px;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        header.sticky-top {
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            left: 0;
+            right: 0;
+            overflow: hidden;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/nutrition-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .nutrition-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .nutrition-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .macro-progress {
+            height: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .meal-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .meal-item:last-child {
+            border-bottom: none;
+        }
+
+        .water-tracker {
+            background: linear-gradient(45deg, #00c6fb, #005bea);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .water-tracker h3 {
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .water-progress {
+            height: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .water-fill {
+            background: rgba(255,255,255,0.8);
+            height: 100%;
+            transition: width 0.5s ease;
+            position: relative;
+            border-radius: 10px;
+        }
+
+        .water-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="0.5" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            animation: wave 3s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(-20px);
+            }
+        }
+
+        .water-bottles {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .water-bottle {
+            width: 30px;
+            height: 55px;
+            margin: 0 5px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 5px 5px 15px 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .water-bottle.filled {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .water-bottle:before {
+            content: '';
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 7px;
+            background-color: inherit;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .water-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .water-btn {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: none;
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .water-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .water-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .water-stat {
+            text-align: center;
+            padding: 5px;
+        }
+
+        .water-stat-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .water-stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .water-history {
+            margin-top: 15px;
+            height: 50px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding-top: 5px;
+        }
+
+        .water-day {
+            width: 12%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px 3px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .water-day:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .water-day-label {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            white-space: nowrap;
+        }
+
+        .water-reminder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 7px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .water-reminder:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .water-reminder i {
+            margin-right: 7px;
+        }
+
+        .add-meal-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .add-meal-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0;
+            }
+            
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .add-meal-btn {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="home.html">
+                    <img src="images/logo.png" alt="Gym Bro Logo" class="me-2">
+                    <span class="fw-bold" style="font-size: 1.6rem; letter-spacing: 0.5px;">GYM BRO</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="home.html">
+                                <i class="fas fa-home"></i>
+                                <span>HOME</span>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="nutrition.html">
+                                <i class="fas fa-apple-alt"></i>
+                                <span>NUTRITION</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://discord.gg/GnvV7wsZ">
+                                <i class="fas fa-users"></i>
+                                <span>COMMUNITY</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="language-selector me-3">
+                        <a href="#" class="lang-btn active" data-lang="en">EN</a>
+                        <a href="#" class="lang-btn" data-lang="vi">VI</a>
+                    </div>
+                    <div class="dropdown">
+                        <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="user-profile" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-profile">
+                            <li><a class="dropdown-item" href="settings.html"><i class="fas fa-cog"></i><span> Settings</span></a></li>
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user"></i><span> Profile</span></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i><span> Logout</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section mb-5">
+            <div class="container">
+                <h1 class="display-4 mb-4" data-aos="fade-up">Track Your Nutrition</h1>
+                <p class="lead" data-aos="fade-up" data-aos-delay="100">Manage your diet to achieve your fitness goals</p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="container">
+            <div class="row">
+                <!-- Daily Summary -->
+                <div class="col-lg-8">
+                    <div class="nutrition-card p-4 mb-4" data-aos="fade-up">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="mb-0">Today's Overview</h2>
+                            <button id="reset-nutrition" class="btn btn-sm btn-outline-danger"><i class="fas fa-redo"></i> Reset</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h5>Calories</h5>
+                                <div class="d-flex justify-content-between" id="calories-progress">
+                                    <span>0 / 2,000 kcal</span>
+                                    <span>0%</span>
+                                </div>
+                                <div class="progress macro-progress">
+                                    <div class="progress-bar bg-primary" id="calories-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Protein</h5>
+                                <div class="d-flex justify-content-between" id="protein-progress">
+                                    <span>0g / 120g</span>
+                                    <span>0%</span>
+                                </div>
+                                <div class="progress macro-progress">
+                                    <div class="progress-bar bg-success" id="protein-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Carbs</h5>
+                                <div class="d-flex justify-content-between" id="carbs-progress">
+                                    <span>0g / 200g</span>
+                                    <span>0%</span>
+                                </div>
+                                <div class="progress macro-progress">
+                                    <div class="progress-bar bg-warning" id="carbs-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Fat</h5>
+                                <div class="d-flex justify-content-between" id="fat-progress">
+                                    <span>0g / 60g</span>
+                                    <span>0%</span>
+                                </div>
+                                <div class="progress macro-progress">
+                                    <div class="progress-bar bg-danger" id="fat-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Meals List -->
+                    <div class="nutrition-card p-4" data-aos="fade-up">
+                        <h2 class="mb-4">Today's Meals</h2>
+                        <div class="meal-list">
+                            <!-- Will be populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Water Tracker -->
+                    <div class="nutrition-card water-tracker mb-4" data-aos="fade-left">
+                        <h3><i class="fas fa-tint me-2"></i>Water Intake</h3>
+                        
+                        <div class="water-stats">
+                            <div class="water-stat">
+                                <div class="water-stat-value" id="current-amount">1.5L</div>
+                                <div class="water-stat-label">Current</div>
+                            </div>
+                            <div class="water-stat">
+                                <div class="water-stat-value">2.5L</div>
+                                <div class="water-stat-label">Goal</div>
+                            </div>
+                            <div class="water-stat">
+                                <div class="water-stat-value" id="water-percentage">60%</div>
+                                <div class="water-stat-label">Progress</div>
+                            </div>
+                        </div>
+                        
+                        <div class="water-progress mb-3">
+                            <div class="water-fill" style="width: 60%">
+                                <div class="water-wave"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="water-bottles">
+                            <div class="water-bottle filled" data-index="1"></div>
+                            <div class="water-bottle filled" data-index="2"></div>
+                            <div class="water-bottle filled" data-index="3"></div>
+                            <div class="water-bottle filled" data-index="4"></div>
+                            <div class="water-bottle filled" data-index="5"></div>
+                            <div class="water-bottle filled" data-index="6"></div>
+                            <div class="water-bottle" data-index="7"></div>
+                            <div class="water-bottle" data-index="8"></div>
+                            <div class="water-bottle" data-index="9"></div>
+                            <div class="water-bottle" data-index="10"></div>
+                        </div>
+                        
+                        <div class="water-buttons">
+                            <button class="water-btn" data-amount="100">+100ml</button>
+                            <button class="water-btn" data-amount="250" id="add-water">+250ml</button>
+                            <button class="water-btn" data-amount="500">+500ml</button>
+                            <button class="water-btn" id="undo-water" title="Undo last drink"><i class="fas fa-undo"></i></button>
+                            <button class="water-btn" id="reset-water" title="Reset water intake"><i class="fas fa-sync-alt"></i></button>
+                        </div>
+                        
+                        <div class="water-history">
+                            <div class="water-day" style="height: 60%" title="Monday: 1.5L">
+                                <div class="water-day-label">Mon</div>
+                            </div>
+                            <div class="water-day" style="height: 40%" title="Tuesday: 1.0L">
+                                <div class="water-day-label">Tue</div>
+                            </div>
+                            <div class="water-day" style="height: 80%" title="Wednesday: 2.0L">
+                                <div class="water-day-label">Wed</div>
+                            </div>
+                            <div class="water-day" style="height: 70%" title="Thursday: 1.8L">
+                                <div class="water-day-label">Thu</div>
+                            </div>
+                            <div class="water-day" style="height: 50%" title="Friday: 1.3L">
+                                <div class="water-day-label">Fri</div>
+                            </div>
+                            <div class="water-day" style="height: 90%" title="Saturday: 2.3L">
+                                <div class="water-day-label">Sat</div>
+                            </div>
+                            <div class="water-day" style="height: 60%" title="Sunday: 1.5L">
+                                <div class="water-day-label">Sun</div>
+                            </div>
+                        </div>
+                        
+                        <div class="water-reminder" id="toggle-reminder">
+                            <i class="fas fa-bell"></i> <span>Set drinking reminders</span>
+                        </div>
+                    </div>
+
+                    <!-- Nutrition Tips -->
+                    <div class="nutrition-card p-4" data-aos="fade-left">
+                        <h3 class="mb-4">Nutrition Tips</h3>
+                        <div class="tips-list">
+                            <div class="tip-item mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Eat enough protein for muscle growth</span>
+                            </div>
+                            <div class="tip-item mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Stay hydrated throughout the day</span>
+                            </div>
+                            <div class="tip-item mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Include plenty of vegetables and fruits</span>
+                            </div>
+                            <div class="tip-item">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Limit processed foods</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Meal Button -->
+        <button class="add-meal-btn" data-bs-toggle="modal" data-bs-target="#addMealModal">
+            <i class="fas fa-plus"></i>
+        </button>
+    </main>
+
+    <!-- Add Meal Modal -->
+    <div class="modal fade" id="addMealModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Meal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-meal-form">
+                        <div class="mb-3">
+                            <label class="form-label">Meal Name</label>
+                            <select class="form-select" id="meal-select" required>
+                                <option value="">Select a meal</option>
+                                <optgroup label="Breakfast">
+                                    <option value="Oatmeal">Oatmeal</option>
+                                    <option value="Scrambled Eggs">Scrambled Eggs</option>
+                                    <option value="Greek Yogurt">Greek Yogurt</option>
+                                    <option value="Protein Shake">Protein Shake</option>
+                                </optgroup>
+                                <optgroup label="Lunch">
+                                    <option value="Chicken Salad">Chicken Salad</option>
+                                    <option value="Tuna Sandwich">Tuna Sandwich</option>
+                                    <option value="Rice Bowl">Rice Bowl</option>
+                                    <option value="Turkey Wrap">Turkey Wrap</option>
+                                </optgroup>
+                                <optgroup label="Dinner">
+                                    <option value="Grilled Chicken">Grilled Chicken</option>
+                                    <option value="Salmon">Salmon</option>
+                                    <option value="Steak">Steak</option>
+                                    <option value="Vegetable Stir Fry">Vegetable Stir Fry</option>
+                                </optgroup>
+                                <optgroup label="Snacks">
+                                    <option value="Protein Bar">Protein Bar</option>
+                                    <option value="Mixed Nuts">Mixed Nuts</option>
+                                    <option value="Fruit">Fruit</option>
+                                    <option value="Greek Yogurt">Greek Yogurt</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Calories (kcal)</label>
+                            <input type="number" class="form-control" id="meal-calories" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Protein (g)</label>
+                            <input type="number" class="form-control" id="meal-protein" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Carbs (g)</label>
+                            <input type="number" class="form-control" id="meal-carbs" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fat (g)</label>
+                            <input type="number" class="form-control" id="meal-fat" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="save-meal">Save Meal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Water Reminder Modal -->
+    <div class="modal fade" id="waterReminderModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Set Water Reminders</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="reminder-enabled">
+                        <label class="form-check-label" for="reminder-enabled">
+                            Enable Reminders
+                        </label>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Reminder Interval (minutes)</label>
+                        <select class="form-select" id="reminder-interval">
+                            <option value="30">30 minutes</option>
+                            <option value="60" selected>1 hour</option>
+                            <option value="120">2 hours</option>
+                            <option value="180">3 hours</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Active Hours</label>
+                        <div class="row">
+                            <div class="col">
+                                <label>From</label>
+                                <input type="time" class="form-control" id="reminder-start" value="08:00">
+                            </div>
+                            <div class="col">
+                                <label>To</label>
+                                <input type="time" class="form-control" id="reminder-end" value="22:00">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="save-reminders">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <img src="images/logo.png" alt="Gym Bro Logo" width="100px" class="mb-3">
+                    <p>Your Ultimate Fitness Companion</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="home.html" class="text-decoration-none text-light">Home</a></li>
+                        <li><a href="nutrition.html" class="text-decoration-none text-light">Nutrition</a></li>
+                        <li><a href="community.html" class="text-decoration-none text-light">Community</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact</h5>
+                    <p><i class="fas fa-envelope me-2"></i> support@gymbro.com</p>
+                    <p><i class="fas fa-phone me-2"></i> +1 234 567 8900</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Gym Bro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    </script>
+
+    <!-- Your custom JavaScript -->
+    <script src="nutrition.js"></script>
+    <script>
+        // Meal database with nutrition information
+        const mealDatabase = {
+            'Oatmeal': { calories: 150, protein: 5, carbs: 27, fat: 3 },
+            'Scrambled Eggs': { calories: 140, protein: 13, carbs: 1, fat: 10 },
+            'Greek Yogurt': { calories: 100, protein: 17, carbs: 6, fat: 0 },
+            'Protein Shake': { calories: 120, protein: 24, carbs: 3, fat: 1 },
+            'Chicken Salad': { calories: 350, protein: 35, carbs: 15, fat: 18 },
+            'Tuna Sandwich': { calories: 400, protein: 25, carbs: 45, fat: 12 },
+            'Rice Bowl': { calories: 450, protein: 20, carbs: 65, fat: 15 },
+            'Turkey Wrap': { calories: 380, protein: 28, carbs: 42, fat: 12 },
+            'Grilled Chicken': { calories: 165, protein: 31, carbs: 0, fat: 3.6 },
+            'Salmon': { calories: 208, protein: 22, carbs: 0, fat: 13 },
+            'Steak': { calories: 271, protein: 25, carbs: 0, fat: 19 },
+            'Vegetable Stir Fry': { calories: 120, protein: 4, carbs: 18, fat: 5 },
+            'Protein Bar': { calories: 200, protein: 20, carbs: 25, fat: 8 },
+            'Mixed Nuts': { calories: 160, protein: 6, carbs: 6, fat: 14 },
+            'Fruit': { calories: 60, protein: 1, carbs: 15, fat: 0 }
+        };
+
+        // Initialize variables to track daily totals
+        let dailyTotals = {
+            calories: 0,
+            protein: 0,
+            carbs: 0,
+            fat: 0
+        };
+
+        // Daily goals
+        const dailyGoals = {
+            calories: 2000,
+            protein: 120,
+            carbs: 200,
+            fat: 60
+        };
+
+        // Initialize water tracking
+        let currentWaterAmount = 1500; // 1.5L
+        let waterHistory = [];
+        
+        // Load saved data if available when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedNutritionData();
+            updateWaterDisplay();
+        });
+
+        // Save nutrition data to localStorage
+        function saveNutritionData() {
+            const nutritionData = {
+                dailyTotals: dailyTotals,
+                meals: Array.from(document.querySelectorAll('.meal-item')).map(item => {
+                    const name = item.querySelector('h5').textContent;
+                    const macros = item.querySelector('small').textContent;
+                    const calories = parseInt(item.querySelector('.text-end h5').textContent);
+                    return { name, macros, calories };
+                }),
+                waterAmount: currentWaterAmount,
+                lastUpdated: new Date().toISOString()
+            };
+            localStorage.setItem('nutritionData', JSON.stringify(nutritionData));
+        }
+
+        // Load saved nutrition data from localStorage
+        function loadSavedNutritionData() {
+            const savedData = localStorage.getItem('nutritionData');
+            if (savedData) {
+                const parsedData = JSON.parse(savedData);
+                
+                // Check if data is from today, otherwise skip loading
+                const lastUpdated = new Date(parsedData.lastUpdated);
+                const today = new Date();
+                if (lastUpdated.toDateString() === today.toDateString()) {
+                    // Load daily totals
+                    dailyTotals = parsedData.dailyTotals;
+                    
+                    // Update nutrition overview
+                    updateNutritionOverview();
+                    
+                    // Load meals
+                    const mealList = document.querySelector('.meal-list');
+                    mealList.innerHTML = '';
+                    parsedData.meals.forEach(meal => {
+                        const mealItem = document.createElement('div');
+                        mealItem.className = 'meal-item';
+                        mealItem.innerHTML = `
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1">${meal.name}</h5>
+                                    <small class="text-muted">${meal.macros}</small>
+                                </div>
+                                <div class="text-end">
+                                    <h5 class="mb-0">${meal.calories} kcal</h5>
+                                    <button class="btn btn-sm btn-danger remove-meal-btn">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        mealList.appendChild(mealItem);
+                    });
+                    
+                    // Add event listeners to remove buttons
+                    document.querySelectorAll('.remove-meal-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            removeMeal(this.closest('.meal-item'));
+                        });
+                    });
+                    
+                    // Load water amount
+                    currentWaterAmount = parsedData.waterAmount;
+                    updateWaterDisplay();
+                }
+            }
+        }
+
+        // Handle meal selection
+        document.getElementById('meal-select').addEventListener('change', function() {
+            const selectedMeal = this.value;
+            if (selectedMeal && mealDatabase[selectedMeal]) {
+                const nutritionInfo = mealDatabase[selectedMeal];
+                document.getElementById('meal-calories').value = nutritionInfo.calories;
+                document.getElementById('meal-protein').value = nutritionInfo.protein;
+                document.getElementById('meal-carbs').value = nutritionInfo.carbs;
+                document.getElementById('meal-fat').value = nutritionInfo.fat;
+            }
+        });
+
+        // Handle meal form submission
+        document.getElementById('save-meal').addEventListener('click', function() {
+            const selectedMeal = document.getElementById('meal-select').value;
+            const calories = parseInt(document.getElementById('meal-calories').value);
+            const protein = parseInt(document.getElementById('meal-protein').value);
+            const carbs = parseInt(document.getElementById('meal-carbs').value);
+            const fat = parseInt(document.getElementById('meal-fat').value);
+
+            // Update daily totals
+            dailyTotals.calories += calories;
+            dailyTotals.protein += protein;
+            dailyTotals.carbs += carbs;
+            dailyTotals.fat += fat;
+
+            // Update the overview section
+            updateNutritionOverview();
+
+            // Add meal to the meal list
+            addMealToList(selectedMeal, calories, protein, carbs, fat);
+
+            // Save data to localStorage
+            saveNutritionData();
+
+            // Show success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Meal Added!',
+                text: 'Your meal has been added to today\'s log',
+                timer: 2000,
+                showConfirmButton: false
+            });
+
+            // Reset form and close modal
+            document.getElementById('add-meal-form').reset();
+            document.getElementById('meal-select').value = '';
+            bootstrap.Modal.getInstance(document.getElementById('addMealModal')).hide();
+        });
+
+        // Function to update nutrition overview
+        function updateNutritionOverview() {
+            // Update calories
+            const caloriesProgress = document.getElementById('calories-progress');
+            const caloriesBar = document.getElementById('calories-bar');
+            const caloriesPercentage = Math.round((dailyTotals.calories / dailyGoals.calories) * 100);
+            caloriesProgress.innerHTML = `<span>${dailyTotals.calories} / ${dailyGoals.calories} kcal</span><span>${caloriesPercentage}%</span>`;
+            caloriesBar.style.width = `${caloriesPercentage}%`;
+
+            // Update protein
+            const proteinProgress = document.getElementById('protein-progress');
+            const proteinBar = document.getElementById('protein-bar');
+            const proteinPercentage = Math.round((dailyTotals.protein / dailyGoals.protein) * 100);
+            proteinProgress.innerHTML = `<span>${dailyTotals.protein}g / ${dailyGoals.protein}g</span><span>${proteinPercentage}%</span>`;
+            proteinBar.style.width = `${proteinPercentage}%`;
+
+            // Update carbs
+            const carbsProgress = document.getElementById('carbs-progress');
+            const carbsBar = document.getElementById('carbs-bar');
+            const carbsPercentage = Math.round((dailyTotals.carbs / dailyGoals.carbs) * 100);
+            carbsProgress.innerHTML = `<span>${dailyTotals.carbs}g / ${dailyGoals.carbs}g</span><span>${carbsPercentage}%</span>`;
+            carbsBar.style.width = `${carbsPercentage}%`;
+
+            // Update fat
+            const fatProgress = document.getElementById('fat-progress');
+            const fatBar = document.getElementById('fat-bar');
+            const fatPercentage = Math.round((dailyTotals.fat / dailyGoals.fat) * 100);
+            fatProgress.innerHTML = `<span>${dailyTotals.fat}g / ${dailyGoals.fat}g</span><span>${fatPercentage}%</span>`;
+            fatBar.style.width = `${fatPercentage}%`;
+        }
+
+        // Function to add meal to the list
+        function addMealToList(name, calories, protein, carbs, fat) {
+            const mealList = document.querySelector('.meal-list');
+            const mealItem = document.createElement('div');
+            mealItem.className = 'meal-item';
+            mealItem.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">${name}</h5>
+                        <small class="text-muted">
+                            Protein: ${protein}g | Carbs: ${carbs}g | Fat: ${fat}g
+                        </small>
+                    </div>
+                    <div class="text-end">
+                        <h5 class="mb-0">${calories} kcal</h5>
+                        <button class="btn btn-sm btn-danger remove-meal-btn">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            mealList.appendChild(mealItem);
+            
+            // Add event listener to remove button
+            mealItem.querySelector('.remove-meal-btn').addEventListener('click', function() {
+                removeMeal(mealItem);
+            });
+        }
+        
+        // Function to remove a meal from the list and update totals
+        function removeMeal(mealItem) {
+            // Confirm before removing
+            Swal.fire({
+                title: 'Remove Meal?',
+                text: 'This will remove the meal from your daily log',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, remove it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Get meal info
+                    const calories = parseInt(mealItem.querySelector('.text-end h5').textContent);
+                    const macrosText = mealItem.querySelector('small').textContent;
+                    
+                    // Parse macros
+                    const proteinMatch = macrosText.match(/Protein: (\d+)g/);
+                    const carbsMatch = macrosText.match(/Carbs: (\d+)g/);
+                    const fatMatch = macrosText.match(/Fat: (\d+)g/);
+                    
+                    const protein = proteinMatch ? parseInt(proteinMatch[1]) : 0;
+                    const carbs = carbsMatch ? parseInt(carbsMatch[1]) : 0;
+                    const fat = fatMatch ? parseInt(fatMatch[1]) : 0;
+                    
+                    // Update daily totals
+                    dailyTotals.calories -= calories;
+                    dailyTotals.protein -= protein;
+                    dailyTotals.carbs -= carbs;
+                    dailyTotals.fat -= fat;
+                    
+                    // Ensure no negative values
+                    dailyTotals.calories = Math.max(0, dailyTotals.calories);
+                    dailyTotals.protein = Math.max(0, dailyTotals.protein);
+                    dailyTotals.carbs = Math.max(0, dailyTotals.carbs);
+                    dailyTotals.fat = Math.max(0, dailyTotals.fat);
+                    
+                    // Update the overview section
+                    updateNutritionOverview();
+                    
+                    // Remove the meal item
+                    mealItem.remove();
+                    
+                    // Save updated data
+                    saveNutritionData();
+                    
+                    // Show success notification
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Meal Removed',
+                        text: 'Your meal has been removed from today\'s log',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        }
+        
+        // Reset nutrition data
+        document.getElementById('reset-nutrition').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Reset Nutrition Data?',
+                text: 'This will clear all meals and reset your nutritional data for today. This action cannot be undone.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, reset it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Clear meal list
+                    document.querySelector('.meal-list').innerHTML = '';
+                    
+                    // Reset daily totals
+                    dailyTotals = {
+                        calories: 0,
+                        protein: 0,
+                        carbs: 0,
+                        fat: 0
+                    };
+                    
+                    // Update the overview section
+                    updateNutritionOverview();
+                    
+                    // Save reset data
+                    saveNutritionData();
+                    
+                    // Show success notification
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Data Reset',
+                        text: 'Your nutrition data has been reset successfully',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        });
+        
+        // Update water display
+        function updateWaterDisplay() {
+            // Update amount display
+            document.getElementById('current-amount').textContent = (currentWaterAmount / 1000).toFixed(1) + 'L';
+            
+            // Update percentage
+            const waterPercentage = Math.round((currentWaterAmount / 2500) * 100);
+            document.getElementById('water-percentage').textContent = waterPercentage + '%';
+            
+            // Update progress bar
+            document.querySelector('.water-fill').style.width = waterPercentage + '%';
+            
+            // Update water bottles
+            const bottles = document.querySelectorAll('.water-bottle');
+            const filledBottles = Math.floor(currentWaterAmount / 250);
+            
+            bottles.forEach((bottle, index) => {
+                if (index < filledBottles) {
+                    bottle.classList.add('filled');
+                } else {
+                    bottle.classList.remove('filled');
+                }
+            });
+            
+            // Save water data
+            saveNutritionData();
+        }
+        
+        // Add water
+        document.querySelectorAll('.water-btn[data-amount]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const amount = parseInt(this.getAttribute('data-amount'));
+                currentWaterAmount += amount;
+                waterHistory.push({
+                    amount: amount,
+                    timestamp: new Date().toISOString()
+                });
+                updateWaterDisplay();
+                
+                // Notification for reaching goal
+                if (currentWaterAmount >= 2500 && currentWaterAmount - amount < 2500) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Congratulations!',
+                        text: 'You\'ve reached your daily water intake goal!',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        });
+        
+        // Undo last water addition
+        document.getElementById('undo-water').addEventListener('click', function() {
+            if (waterHistory.length > 0) {
+                const lastAddition = waterHistory.pop();
+                currentWaterAmount -= lastAddition.amount;
+                currentWaterAmount = Math.max(0, currentWaterAmount);
+                updateWaterDisplay();
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Nothing to Undo',
+                    text: 'No water intake history available to undo',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+        });
+        
+        // Reset water
+        document.getElementById('reset-water').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Reset Water Tracker?',
+                text: 'This will reset your water intake data for today. This action cannot be undone.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, reset it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    currentWaterAmount = 0;
+                    waterHistory = [];
+                    updateWaterDisplay();
+                    
+                    // Show success notification
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Water Tracker Reset',
+                        text: 'Your water intake has been reset for today',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        });
+        
+        // Toggle water reminder modal
+        document.getElementById('toggle-reminder').addEventListener('click', function() {
+            new bootstrap.Modal(document.getElementById('waterReminderModal')).show();
+        });
+        
+        // Save water reminder settings
+        document.getElementById('save-reminders').addEventListener('click', function() {
+            const enabled = document.getElementById('reminder-enabled').checked;
+            const interval = document.getElementById('reminder-interval').value;
+            const startTime = document.getElementById('reminder-start').value;
+            const endTime = document.getElementById('reminder-end').value;
+            
+            // Save settings
+            localStorage.setItem('waterReminders', JSON.stringify({
+                enabled, 
+                interval, 
+                startTime, 
+                endTime
+            }));
+            
+            // Close modal
+            bootstrap.Modal.getInstance(document.getElementById('waterReminderModal')).hide();
+            
+            // Show confirmation
+            Swal.fire({
+                icon: 'success',
+                title: 'Settings Saved',
+                text: enabled ? 'Water reminders have been enabled' : 'Water reminders have been disabled',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        });
+        
+        // Make water bottles clickable
+        document.querySelectorAll('.water-bottle').forEach((bottle, index) => {
+            bottle.addEventListener('click', function() {
+                const bottleIndex = parseInt(this.getAttribute('data-index'));
+                
+                // If clicking on an unfilled bottle, fill up to this bottle
+                if (!this.classList.contains('filled')) {
+                    const amountToAdd = bottleIndex * 250 - currentWaterAmount;
+                    if (amountToAdd > 0) {
+                        currentWaterAmount += amountToAdd;
+                        waterHistory.push({
+                            amount: amountToAdd,
+                            timestamp: new Date().toISOString()
+                        });
+                        updateWaterDisplay();
+                    }
+                } 
+                // If clicking on filled bottle, remove water down to this bottle
+                else {
+                    const newAmount = bottleIndex * 250;
+                    if (newAmount < currentWaterAmount) {
+                        const amountToRemove = currentWaterAmount - newAmount;
+                        currentWaterAmount -= amountToRemove;
+                        waterHistory.push({
+                            amount: -amountToRemove,
+                            timestamp: new Date().toISOString()
+                        });
+                        updateWaterDisplay();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
